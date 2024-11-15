@@ -76,6 +76,7 @@ class _VideoOverlayState extends State<VideoOverlay>
   @override
   void dispose() {
     _animationController.dispose();
+    _textEditingController.dispose();
     super.dispose();
   }
 
