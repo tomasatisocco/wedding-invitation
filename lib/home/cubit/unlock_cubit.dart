@@ -6,14 +6,15 @@ part 'unlock_state.dart';
 class UnlockCubit extends Cubit<UnlockStatus> {
   UnlockCubit() : super(UnlockStatus.locked);
 
-  Future<void> unlock(String password) async {
+  Future<void> unlock(String password, [HttpsCallable? httpsCallable]) async {
     try {
       emit(UnlockStatus.unlocking);
-      final callable = FirebaseFunctions.instanceFor(
-        region: 'southamerica-east1',
-      ).httpsCallable(
-        'validatePassword',
-      );
+      final callable = httpsCallable ??
+          FirebaseFunctions.instanceFor(
+            region: 'southamerica-east1',
+          ).httpsCallable(
+            'validatePassword',
+          );
 
       // Call the Firebase Function to validate the password
       final response = await callable.call<Map<dynamic, dynamic>>(

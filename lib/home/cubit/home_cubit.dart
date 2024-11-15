@@ -8,25 +8,26 @@ import 'package:wedding_invitation/firebase_options.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(const HomeState()) {
+  HomeCubit({bool? testing}) : super(const HomeState()) {
+    if (testing ?? false) return;
+    initFirebase();
     initVideoController();
   }
 
   static const animationStepDuration = Duration(milliseconds: 80);
 
-  Future<void> initVideoController() async {
+  Future<void> initVideoController([VideoPlayerController? controller]) async {
     try {
+      emit(const HomeState());
       await retry<void>(
         maxAttempts: 5,
         () async {
-          await Firebase.initializeApp(
-            options: DefaultFirebaseOptions.currentPlatform,
-          );
-          final videoPlayerController = VideoPlayerController.networkUrl(
-            Uri.parse(
-              'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-4ee7d.firebasestorage.app/o/Videoleap_2023_10_01_11_14_08_462.mp4?alt=media&token=5308800c-286a-41ec-bc69-7496e157c705',
-            ),
-          );
+          final videoPlayerController = controller ??
+              VideoPlayerController.networkUrl(
+                Uri.parse(
+                  'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-4ee7d.firebasestorage.app/o/Videoleap_2023_10_01_11_14_08_462.mp4?alt=media&token=5308800c-286a-41ec-bc69-7496e157c705',
+                ),
+              );
           await videoPlayerController.initialize();
           await videoPlayerController.setVolume(0);
           await videoPlayerController.setLooping(true);
@@ -42,5 +43,13 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       emit(const HomeState(status: HomeStatus.error));
     }
+  }
+
+  Future<void> initFirebase() async {
+    try {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+    } catch (_) {}
   }
 }
