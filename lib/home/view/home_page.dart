@@ -34,35 +34,93 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLocked =
-        context.select((UnlockCubit cubit) => cubit.state.isLocked);
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        if (state.isLoading) const _LoadingPage();
-        final videoController = state.videoController;
-        if (videoController == null) return const _LoadingPage();
-        return Scaffold(
-          body: ListView(
-            physics: isLocked ? const NeverScrollableScrollPhysics() : null,
-            children: const [
-              UnlockPage(),
-            ],
-          ),
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          transitionBuilder: (child, animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          child: state.isLoaded ? const _HomeWidget() : const _SplashPage(),
         );
       },
     );
   }
 }
 
-class _LoadingPage extends StatelessWidget {
-  const _LoadingPage();
+class _HomeWidget extends StatelessWidget {
+  const _HomeWidget();
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
+    final isLocked =
+        context.select((UnlockCubit cubit) => cubit.state.isLocked);
+    return Scaffold(
+      body: ListView(
+        physics: isLocked ? const NeverScrollableScrollPhysics() : null,
+        children: const [
+          UnlockPage(),
+        ],
+      ),
+    );
+  }
+}
+
+class _SplashPage extends StatefulWidget {
+  const _SplashPage();
+  @override
+  _SplashPageState createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<_SplashPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat(reverse: true);
+
+    _scaleAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ColoredBox(
+        color: const Color(0xFFEAE4DD),
+        child: Center(
+          child: AnimatedBuilder(
+            animation: _scaleAnimation,
+            builder: (context, child) {
+              return AnimatedScale(
+                scale: 3 + 1 * _scaleAnimation.value,
+                duration: const Duration(seconds: 1),
+                child: Image.asset(
+                  'assets/images/wedding_logo.png',
+                  width: 150,
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
