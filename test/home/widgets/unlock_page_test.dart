@@ -163,6 +163,7 @@ void main() {
     await tester.tap(find.text('SUBMIT'));
     await tester.pumpAndSettle();
 
+    verify(() => unlockRepository.unlock('Password')).called(1);
     expect(unlockCubit.state.isUnlocked, true);
   });
 }
