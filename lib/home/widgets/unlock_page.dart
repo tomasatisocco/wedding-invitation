@@ -10,18 +10,24 @@ class UnlockPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<HomeCubit>().state.videoController!;
+    final controller = context.read<HomeCubit>().state.videoController;
+    final height = controller?.value.size.height ?? 0;
+    final width = controller?.value.size.width ?? 0;
     return SizedBox(
       height: MediaQuery.sizeOf(context).height,
+      width: MediaQuery.sizeOf(context).width,
       child: Stack(
         children: [
           Positioned.fill(
             child: FittedBox(
               fit: BoxFit.cover,
               child: SizedBox(
-                width: controller.value.size.width,
-                height: controller.value.size.height,
-                child: VideoPlayer(controller),
+                key: const Key('video_player_box'),
+                width: width,
+                height: height,
+                child: controller != null
+                    ? VideoPlayer(controller)
+                    : const SizedBox(),
               ),
             ),
           ),
@@ -67,8 +73,8 @@ class _VideoOverlayState extends State<VideoOverlay>
         context
             .read<HomeCubit>()
             .state
-            .videoController!
-            .setVolume(_animationController.value);
+            .videoController
+            ?.setVolume(_animationController.value);
       },
     );
   }
@@ -94,6 +100,7 @@ class _VideoOverlayState extends State<VideoOverlay>
         }
       },
       child: FadeTransition(
+        key: const Key('unlock_fade_transition'),
         opacity: _opacityAnimation,
         child: Container(
           color: Colors.brown.withOpacity(0.6),
@@ -116,6 +123,7 @@ class _VideoOverlayState extends State<VideoOverlay>
               ),
               TextFormField(
                 controller: _textEditingController,
+                key: const Key('unlock_password'),
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: 'ENTER  PASSWORD',

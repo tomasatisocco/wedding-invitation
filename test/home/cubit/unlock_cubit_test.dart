@@ -1,47 +1,33 @@
 // test/unlock/cubit/unlock_cubit_test.dart
 import 'package:bloc_test/bloc_test.dart';
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:unlock_repository/unlock_repository.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
 
-class MockHttpsCallable extends Mock implements HttpsCallable {}
-
-class MockHttpsCallableResponse extends Mock
-    implements HttpsCallableResult<Map<dynamic, dynamic>> {
-  MockHttpsCallableResponse(this.data);
-
-  @override
-  final Map<dynamic, dynamic> data;
-}
+class MockUnlockRepository extends Mock implements UnlockRepository {}
 
 void main() {
   group('UnlockCubit', () {
-    late MockHttpsCallable callable;
-    late MockHttpsCallableResponse correctResponse;
+    late MockUnlockRepository unlockRepository;
 
     setUp(() {
-      callable = MockHttpsCallable();
-      correctResponse = MockHttpsCallableResponse({'unlocked': true});
+      unlockRepository = MockUnlockRepository();
     });
 
     test('initial state is UnlockState with loading status', () {
-      final unlockCubit = UnlockCubit();
+      final unlockCubit = UnlockCubit(unlockRepository: unlockRepository);
       expect(unlockCubit.state, UnlockStatus.locked);
     });
 
     blocTest<UnlockCubit, UnlockStatus>(
       'emits UnlockStatus with unlocked status when unlock is successful',
-      build: UnlockCubit.new,
-      act: (cubit) => cubit.unlock('Password', callable),
+      build: () => UnlockCubit(unlockRepository: unlockRepository),
+      act: (cubit) => cubit.unlock('Password'),
       setUp: () {
         when(
-          () => callable.call<Map<dynamic, dynamic>>(
-            <String, dynamic>{'password': 'Password'},
-          ),
-        ).thenAnswer(
-          (_) async => correctResponse,
-        );
+          () => unlockRepository.unlock('Password'),
+        ).thenAnswer((_) async => true);
       },
       expect: () => [
         UnlockStatus.unlocking,
@@ -50,16 +36,27 @@ void main() {
     );
 
     blocTest<UnlockCubit, UnlockStatus>(
-      'emits ErrorStatus with unlocked status when unlock is successful',
-      build: UnlockCubit.new,
-      act: (cubit) => cubit.unlock('WrongPassword', callable),
+      'emits ErrorStatus with unlocked status when unlock is unsuccessful',
+      build: () => UnlockCubit(unlockRepository: unlockRepository),
+      act: (cubit) => cubit.unlock('WrongPassword'),
       setUp: () {
         when(
-          () => callable.call<Map<dynamic, dynamic>>(
-            <String, dynamic>{'password': 'Password'},
-          ),
-        ).thenAnswer(
-          (_) async => correctResponse,
+          () => unlockRepository.unlock('WrongPassword'),
+        ).thenAnswer((_) async => false);
+      },
+      expect: () => [
+        UnlockStatus.unlocking,
+        UnlockStatus.error,
+      ],
+    );
+
+    blocTest<UnlockCubit, UnlockStatus>(
+      'emits ErrorStatus with unlocked status when unlock fails',
+      build: () => UnlockCubit(unlockRepository: unlockRepository),
+      act: (cubit) => cubit.unlock('WrongPassword'),
+      setUp: () {
+        when(() => unlockRepository.unlock('WrongPassword')).thenThrow(
+          Exception('Wrong'),
         );
       },
       expect: () => [

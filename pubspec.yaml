@@ -8,9 +8,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.4
-  cloud_functions: ^5.1.5
   equatable: ^2.0.5
-  firebase_core: ^3.8.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
@@ -18,14 +16,19 @@ dependencies:
     sdk: flutter
   gap: ^3.0.1
   google_fonts: ^6.2.1
+  home_repository:
+    path: packages/home_repository
   intl: ^0.19.0
   retry: ^3.1.2
+  unlock_repository:
+    path: packages/unlock_repository
   video_player: ^2.9.2
 
 dev_dependencies:
   bloc_test: ^9.1.7
   flutter_test:
     sdk: flutter
+  melos: ^6.2.0
   mocktail: ^1.0.4
   very_good_analysis: ^6.0.0
 

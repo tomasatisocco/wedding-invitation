@@ -1,16 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:home_repository/home_repository.dart';
 import 'package:retry/retry.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wedding_invitation/firebase_options.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit({bool? testing}) : super(const HomeState()) {
+  HomeCubit({
+    required HomeRepository homeRepository,
+    bool? testing,
+  })  : _homeRepository = homeRepository,
+        super(const HomeState()) {
     if (testing ?? false) return;
-    initFirebase();
     initVideoController();
   }
 
@@ -22,6 +24,7 @@ class HomeCubit extends Cubit<HomeState> {
       await retry<void>(
         maxAttempts: 5,
         () async {
+          await _homeRepository.initFirebase();
           final videoPlayerController = controller ??
               VideoPlayerController.networkUrl(
                 Uri.parse(
@@ -45,11 +48,5 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future<void> initFirebase() async {
-    try {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-    } catch (_) {}
-  }
+  final HomeRepository _homeRepository;
 }

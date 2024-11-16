@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:home_repository/home_repository.dart';
+import 'package:unlock_repository/unlock_repository.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
 import 'package:wedding_invitation/home/widgets/unlock_page.dart';
@@ -11,8 +13,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => HomeCubit()),
-        BlocProvider(create: (context) => UnlockCubit()),
+        BlocProvider(
+          create: (context) => HomeCubit(
+            homeRepository: context.read<HomeRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => UnlockCubit(
+            unlockRepository: context.read<UnlockRepository>(),
+          ),
+        ),
       ],
       child: const HomePageView(),
     );

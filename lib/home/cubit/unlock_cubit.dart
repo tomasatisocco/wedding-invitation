@@ -1,32 +1,23 @@
 import 'package:bloc/bloc.dart';
-import 'package:cloud_functions/cloud_functions.dart';
+import 'package:unlock_repository/unlock_repository.dart';
 
 part 'unlock_state.dart';
 
 class UnlockCubit extends Cubit<UnlockStatus> {
-  UnlockCubit() : super(UnlockStatus.locked);
+  UnlockCubit({required UnlockRepository unlockRepository})
+      : _unlockRepository = unlockRepository,
+        super(UnlockStatus.locked);
 
-  Future<void> unlock(String password, [HttpsCallable? httpsCallable]) async {
+  Future<void> unlock(String password) async {
     try {
       emit(UnlockStatus.unlocking);
-      final callable = httpsCallable ??
-          FirebaseFunctions.instanceFor(
-            region: 'southamerica-east1',
-          ).httpsCallable(
-            'validatePassword',
-          );
-
-      // Call the Firebase Function to validate the password
-      final response = await callable.call<Map<dynamic, dynamic>>(
-        <String, dynamic>{
-          'password': password,
-        },
-      );
-
-      if (response.data['unlocked'] == true) return emit(UnlockStatus.unlocked);
+      final unlocked = await _unlockRepository.unlock(password);
+      if (unlocked) return emit(UnlockStatus.unlocked);
       emit(UnlockStatus.error);
     } catch (e) {
       emit(UnlockStatus.error);
     }
   }
+
+  final UnlockRepository _unlockRepository;
 }
