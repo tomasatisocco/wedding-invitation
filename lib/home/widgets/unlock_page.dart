@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:video_player/video_player.dart';
+import 'package:wedding_invitation/app_colors.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
 import 'package:wedding_invitation/home/widgets/scroll_down_indicator.dart';
@@ -109,17 +110,12 @@ class _VideoOverlayState extends State<VideoOverlay>
         key: const Key('unlock_fade_transition'),
         opacity: _opacityAnimation,
         child: Container(
-          color: Colors.brown.withOpacity(0.6),
+          color: const Color(0xFF737373).withOpacity(0.6),
           padding: const EdgeInsets.symmetric(horizontal: 60),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.lock_outline_rounded,
-                size: 60,
-                color: Colors.white,
-              ),
               const Text(
                 'Tomas & Emilia',
                 style: TextStyle(
@@ -127,13 +123,17 @@ class _VideoOverlayState extends State<VideoOverlay>
                   color: Colors.white,
                 ),
               ),
+              const Gap(16),
               TextFormField(
                 controller: _textEditingController,
                 key: const Key('unlock_password'),
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: 'ENTER  PASSWORD',
-                  fillColor: const Color(0xFFEFEBE5),
+                  hintStyle: const TextStyle(
+                    color: ButtonColors.button1TextColor,
+                  ),
+                  fillColor: ButtonColors.button1FillColor,
                   constraints: const BoxConstraints(
                     maxWidth: 500,
                     minWidth: 300,
@@ -154,7 +154,7 @@ class _VideoOverlayState extends State<VideoOverlay>
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: const Color(0xFF9D887B),
+                  //color: ButtonColors.button2FillColor,
                 ),
                 child: MaterialButton(
                   onPressed: () => context
@@ -163,6 +163,7 @@ class _VideoOverlayState extends State<VideoOverlay>
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
+                  color: ButtonColors.button2FillColor,
                   padding: EdgeInsets.zero,
                   child: Center(
                     child: BlocBuilder<UnlockCubit, UnlockStatus>(
@@ -173,7 +174,7 @@ class _VideoOverlayState extends State<VideoOverlay>
                               : 'SUBMIT',
                           style: const TextStyle(
                             fontSize: 20,
-                            color: Colors.white,
+                            color: ButtonColors.button2TextColor,
                           ),
                         );
                       },
