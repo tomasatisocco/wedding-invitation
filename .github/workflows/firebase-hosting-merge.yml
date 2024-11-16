@@ -17,13 +17,13 @@ jobs:
       # Step 2: Set up Flutter
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          flutter-version: '3.24.4'
 
       # Step 3: Install Flutter dependencies
       - run: flutter pub get
 
       # Step 4: Build the Flutter web project
-      - run: npm ci && npm run build
+      - run: flutter build web -t lib/main_production.dart
 
       # Step 5: Deploy to Firebase Hosting
       - uses: FirebaseExtended/action-hosting-deploy@v0
