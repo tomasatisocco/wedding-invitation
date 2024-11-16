@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:home_repository/home_repository.dart';
 import 'package:retry/retry.dart';
 import 'package:video_player/video_player.dart';
@@ -39,6 +40,7 @@ class HomeCubit extends Cubit<HomeState> {
             HomeState(
               videoController: videoPlayerController,
               status: HomeStatus.loaded,
+              scrollController: ScrollController(),
             ),
           );
         },

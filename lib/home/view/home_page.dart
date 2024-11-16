@@ -59,11 +59,18 @@ class _HomeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final isLocked =
         context.select((UnlockCubit cubit) => cubit.state.isLocked);
+    final scrollController = context.read<HomeCubit>().state.scrollController;
     return Scaffold(
       body: ListView(
         physics: isLocked ? const NeverScrollableScrollPhysics() : null,
-        children: const [
+        controller: scrollController,
+        children: [
           UnlockPage(),
+          Container(
+            height: 600,
+            width: double.infinity,
+            color: Colors.amber,
+          )
         ],
       ),
     );

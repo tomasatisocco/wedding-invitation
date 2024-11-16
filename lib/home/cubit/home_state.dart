@@ -10,10 +10,12 @@ class HomeState extends Equatable {
   const HomeState({
     this.status = HomeStatus.loading,
     this.videoController,
+    this.scrollController,
   });
 
   final HomeStatus status;
   final VideoPlayerController? videoController;
+  final ScrollController? scrollController;
 
   bool get isLoading => status == HomeStatus.loading;
   bool get isLoaded => status == HomeStatus.loaded;

@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
+import 'package:wedding_invitation/home/widgets/scroll_down_indicator.dart';
 
 class UnlockPage extends StatelessWidget {
   const UnlockPage({super.key});
@@ -17,6 +18,7 @@ class UnlockPage extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
       child: Stack(
+        alignment: Alignment.center,
         children: [
           Positioned.fill(
             child: FittedBox(
@@ -32,6 +34,10 @@ class UnlockPage extends StatelessWidget {
             ),
           ),
           const Positioned.fill(child: VideoOverlay()),
+          const Positioned(
+            bottom: 50,
+            child: ScrollDownIndicator(),
+          ),
         ],
       ),
     );
