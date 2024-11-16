@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:wedding_invitation/app_colors.dart';
@@ -43,9 +44,10 @@ class CountDownPage extends StatelessWidget {
             ),
           ),
         ),
-        Gap(32),
-        Text(
+        Gap(64),
+        AutoSizeText(
           '¡Falta cada vez menos!',
+          maxLines: 1,
           style: TextStyle(
             fontSize: 40,
             color: ButtonColors.button1TextColor,
@@ -130,8 +132,8 @@ class TimeIndicator extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 100,
-          width: 100,
+          height: 90,
+          width: 90,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: ButtonColors.button2FillColor,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -116,8 +117,10 @@ class _VideoOverlayState extends State<VideoOverlay>
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              const AutoSizeText(
                 'Tomas & Emilia',
+                textAlign: TextAlign.center,
+                maxLines: 1,
                 style: TextStyle(
                   fontSize: 40,
                   color: Colors.white,

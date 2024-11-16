@@ -5,6 +5,7 @@ import 'package:unlock_repository/unlock_repository.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
 import 'package:wedding_invitation/home/widgets/count_down_page.dart';
+import 'package:wedding_invitation/home/widgets/info_page.dart';
 import 'package:wedding_invitation/home/widgets/unlock_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -63,13 +64,16 @@ class _HomeWidget extends StatelessWidget {
     final scrollController = context.read<HomeCubit>().state.scrollController;
     return Scaffold(
       backgroundColor: const Color(0xFFFFF8F8),
-      body: ListView(
+      body: SingleChildScrollView(
         physics: isLocked ? const NeverScrollableScrollPhysics() : null,
         controller: scrollController,
-        children: const [
-          UnlockPage(),
-          CountDownPage(),
-        ],
+        child: const Column(
+          children: [
+            UnlockPage(),
+            CountDownPage(),
+            InfoPage(),
+          ],
+        ),
       ),
     );
   }

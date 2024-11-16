@@ -45,12 +45,6 @@ class ScrollablePageState extends State<ScrollDownIndicator>
   }
 
   @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocListener<UnlockCubit, UnlockStatus>(
       listener: (context, state) async {
