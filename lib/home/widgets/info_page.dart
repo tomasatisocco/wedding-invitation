@@ -103,8 +103,6 @@ class _InfoWidget extends StatelessWidget {
       final uri = Uri.parse(url);
       if (!await canLaunchUrl(uri)) return;
       await launchUrl(uri);
-    } catch (_) {
-      print(_);
-    }
+    } catch (_) {}
   }
 }

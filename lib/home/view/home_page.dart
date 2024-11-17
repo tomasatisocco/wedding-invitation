@@ -5,6 +5,7 @@ import 'package:unlock_repository/unlock_repository.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
 import 'package:wedding_invitation/home/widgets/count_down_page.dart';
+import 'package:wedding_invitation/home/widgets/dress_code_page.dart';
 import 'package:wedding_invitation/home/widgets/info_page.dart';
 import 'package:wedding_invitation/home/widgets/unlock_page.dart';
 
@@ -72,6 +73,7 @@ class _HomeWidget extends StatelessWidget {
             UnlockPage(),
             CountDownPage(),
             InfoPage(),
+            DressCodePage(),
           ],
         ),
       ),
