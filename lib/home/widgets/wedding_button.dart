@@ -9,6 +9,7 @@ class WeddingButton extends StatelessWidget {
     required this.url,
     this.height = 64,
     this.width = 420,
+    this.onPressed,
     super.key,
   });
 
@@ -16,11 +17,12 @@ class WeddingButton extends StatelessWidget {
   final String url;
   final double width;
   final double height;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: launchPage,
+      onPressed: onPressed ?? launchPage,
       height: height,
       minWidth: width,
       elevation: 1,
