@@ -174,7 +174,7 @@ class _SeeMoreButton extends StatelessWidget {
 
   Future<void> launchPage() async {
     try {
-      final uri = Uri.parse('https://ar.pinterest.com');
+      final uri = Uri.parse('https://pin.it/MtkEDXSyB');
       if (!await canLaunchUrl(uri)) return;
       await launchUrl(uri);
     } catch (_) {}

@@ -48,7 +48,6 @@ class PicturesPageState extends State<PicturesPage> {
           _scrollPosition,
           2,
         ),
-        const Gap(500),
       ],
     );
   }
