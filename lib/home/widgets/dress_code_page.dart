@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:wedding_invitation/app_colors.dart';
+import 'package:wedding_invitation/home/widgets/wedding_button.dart';
 
 class DressCodePage extends StatelessWidget {
   const DressCodePage({super.key});
@@ -37,7 +37,7 @@ class DressCodePage extends StatelessWidget {
           ),
         ),
         Gap(32),
-        _SeeMoreButton(),
+        WeddingButton(title: 'Ver Más', url: 'https://pin.it/MtkEDXSyB'),
       ],
     );
   }
@@ -147,37 +147,6 @@ class _DressCodeExamplesState extends State<DressCodeExamples> {
 
   void _onPageChanged() {
     setState(() {});
-  }
-}
-
-class _SeeMoreButton extends StatelessWidget {
-  const _SeeMoreButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      onPressed: launchPage,
-      height: 64,
-      minWidth: 320,
-      elevation: 1,
-      shape: const StadiumBorder(),
-      color: ButtonColors.button1FillColor,
-      child: const Text(
-        'Ver Más',
-        style: TextStyle(
-          fontSize: 24,
-          color: ButtonColors.button1TextColor,
-        ),
-      ),
-    );
-  }
-
-  Future<void> launchPage() async {
-    try {
-      final uri = Uri.parse('https://pin.it/MtkEDXSyB');
-      if (!await canLaunchUrl(uri)) return;
-      await launchUrl(uri);
-    } catch (_) {}
   }
 }
 

@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:wedding_invitation/app_colors.dart';
+import 'package:wedding_invitation/home/widgets/wedding_button.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({super.key});
@@ -12,9 +12,11 @@ class InfoPage extends StatelessWidget {
     return Column(
       children: [
         const Gap(32),
-        const _InfoWidget(
+        const WeddingButton(
           title: 'Agendar Recordatorio',
           url: 'https://calendar.app.google/geQtKQGj3BLEt11KA',
+          height: 48,
+          width: 220,
         ),
         const Gap(64),
         Padding(
@@ -60,49 +62,14 @@ class InfoPage extends StatelessWidget {
           ),
         ),
         const Gap(32),
-        const _InfoWidget(
+        const WeddingButton(
           title: 'Ver Mapa',
           url: 'https://maps.app.goo.gl/WLPnUwETkKjRZ3o8A',
+          height: 48,
+          width: 220,
         ),
         const Gap(16),
       ],
     );
-  }
-}
-
-class _InfoWidget extends StatelessWidget {
-  const _InfoWidget({
-    required this.title,
-    required this.url,
-  });
-
-  final String title;
-  final String url;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      onPressed: launchPage,
-      height: 48,
-      minWidth: 220,
-      elevation: 1,
-      shape: const StadiumBorder(),
-      color: ButtonColors.button1FillColor,
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 16,
-          color: ButtonColors.button1TextColor,
-        ),
-      ),
-    );
-  }
-
-  Future<void> launchPage() async {
-    try {
-      final uri = Uri.parse(url);
-      if (!await canLaunchUrl(uri)) return;
-      await launchUrl(uri);
-    } catch (_) {}
   }
 }

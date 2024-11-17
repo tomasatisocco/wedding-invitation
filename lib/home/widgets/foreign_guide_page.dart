@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:wedding_invitation/app_colors.dart';
+import 'package:wedding_invitation/home/widgets/wedding_button.dart';
 
 class ForeignGuidePage extends StatelessWidget {
   const ForeignGuidePage({super.key});
@@ -155,33 +155,14 @@ class InformationWidget extends StatelessWidget {
         for (int i = 0; i < info.buttonTitles.length; i++)
           Padding(
             padding: const EdgeInsets.only(top: 32),
-            child: MaterialButton(
-              onPressed: () => launchPage(info.buttonUrls[i]),
-              height: 64,
-              minWidth: 420,
-              elevation: 1,
-              shape: const StadiumBorder(),
-              color: ButtonColors.button1FillColor,
-              child: Text(
-                info.buttonTitles[i],
-                style: const TextStyle(
-                  fontSize: 24,
-                  color: ButtonColors.button1TextColor,
-                ),
-              ),
+            child: WeddingButton(
+              title: info.buttonTitles[i],
+              url: info.buttonUrls[i],
             ),
           ),
         const Gap(32),
       ],
     );
-  }
-
-  Future<void> launchPage(String url) async {
-    try {
-      final uri = Uri.parse(url);
-      if (!await canLaunchUrl(uri)) return;
-      await launchUrl(uri);
-    } catch (_) {}
   }
 }
 
