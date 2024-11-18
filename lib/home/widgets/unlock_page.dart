@@ -92,6 +92,7 @@ class _VideoOverlayState extends State<VideoOverlay>
   void dispose() {
     _animationController.dispose();
     _textEditingController.dispose();
+
     super.dispose();
   }
 
@@ -169,7 +170,6 @@ class _VideoOverlayState extends State<VideoOverlay>
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  //color: ButtonColors.button2FillColor,
                 ),
                 child: MaterialButton(
                   onPressed: () => context

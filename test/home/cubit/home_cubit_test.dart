@@ -9,6 +9,8 @@ class MockVideoPlayerController extends Mock implements VideoPlayerController {}
 
 class MockHomeRepository extends Mock implements HomeRepository {}
 
+const _invitationId = 'invitationId';
+
 void main() {
   group('HomeCubit', () {
     late MockVideoPlayerController mockVideoPlayerController;
@@ -21,7 +23,10 @@ void main() {
     });
 
     test('initial state is HomeState with loading status', () {
-      final homeCubit = HomeCubit(homeRepository: MockHomeRepository());
+      final homeCubit = HomeCubit(
+        homeRepository: MockHomeRepository(),
+        invitationId: _invitationId,
+      );
       expect(homeCubit.state, const HomeState());
     });
 
@@ -30,8 +35,12 @@ void main() {
       build: () => HomeCubit(
         testing: true,
         homeRepository: mockHomeRepository,
+        invitationId: _invitationId,
       ),
       setUp: () {
+        when(() => mockHomeRepository.getInvitation(_invitationId)).thenAnswer(
+          (_) async => const Invitation(),
+        );
         when(mockVideoPlayerController.initialize).thenAnswer((_) async {});
         when(() => mockVideoPlayerController.setLooping(true)).thenAnswer(
           (_) async => true,
@@ -59,10 +68,14 @@ void main() {
       build: () => HomeCubit(
         testing: true,
         homeRepository: mockHomeRepository,
+        invitationId: _invitationId,
       ),
-      setUp: () => when(mockVideoPlayerController.initialize).thenThrow(
-        Exception(),
-      ),
+      setUp: () {
+        when(() => mockHomeRepository.getInvitation(_invitationId)).thenAnswer(
+          (_) async => const Invitation(),
+        );
+        when(mockVideoPlayerController.initialize).thenThrow(Exception());
+      },
       act: (cubit) => cubit.initVideoController(mockVideoPlayerController),
       expect: () => [
         const HomeState(),

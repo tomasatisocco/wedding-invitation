@@ -12,7 +12,7 @@ class ScrollDownIndicator extends StatefulWidget {
 
 class ScrollablePageState extends State<ScrollDownIndicator>
     with SingleTickerProviderStateMixin {
-  late ScrollController _scrollController;
+  late ScrollController? _scrollController;
   late AnimationController _controller;
   late Animation<double> _animation;
   bool _isArrowVisible = false;
@@ -28,10 +28,10 @@ class ScrollablePageState extends State<ScrollDownIndicator>
     _animation = Tween<double>(begin: 0, end: 20).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
-    _scrollController = context.read<HomeCubit>().state.scrollController!;
+    _scrollController = context.read<HomeCubit>().state.scrollController;
 
-    _scrollController.addListener(() {
-      final isScrolled = _scrollController.position.pixels > 50;
+    _scrollController?.addListener(() {
+      final isScrolled = (_scrollController?.position.pixels ?? 0) > 50;
       if (isScrolled && _isArrowVisible) {
         setState(() {
           _isArrowVisible = false;
@@ -45,12 +45,18 @@ class ScrollablePageState extends State<ScrollDownIndicator>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<UnlockCubit, UnlockStatus>(
       listener: (context, state) async {
         if (state.isUnlocked) {
-          await Future<void>.delayed(const Duration(seconds: 3));
-          if (_scrollController.position.pixels <= 50) {
+          final position = _scrollController?.position.pixels ?? 0;
+          if (position <= 50) {
             setState(() {
               _isArrowVisible = true;
             });
