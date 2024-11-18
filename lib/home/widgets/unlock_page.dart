@@ -13,7 +13,8 @@ class UnlockPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<HomeCubit>().state.videoController;
+    final state = context.read<HomeCubit>().state;
+    final controller = state.videoController;
     final height = controller?.value.size.height ?? 0;
     final width = controller?.value.size.width ?? 0;
     return SizedBox(
@@ -96,6 +97,7 @@ class _VideoOverlayState extends State<VideoOverlay>
 
   @override
   Widget build(BuildContext context) {
+    final names = context.read<HomeCubit>().state.invitationNames;
     return BlocListener<UnlockCubit, UnlockStatus>(
       listener: (context, state) {
         if (state.isUnlocked) {
@@ -118,11 +120,21 @@ class _VideoOverlayState extends State<VideoOverlay>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const AutoSizeText(
-                'Tomas & Emilia',
+                'Bienvenidos',
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 style: TextStyle(
                   fontSize: 40,
+                  color: Colors.white,
+                ),
+              ),
+              const Gap(8),
+              AutoSizeText(
+                names ?? '',
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                style: const TextStyle(
+                  fontSize: 32,
                   color: Colors.white,
                 ),
               ),

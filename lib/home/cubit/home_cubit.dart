@@ -10,8 +10,10 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit({
     required HomeRepository homeRepository,
+    required String? invitationId,
     bool? testing,
   })  : _homeRepository = homeRepository,
+        _invitationId = invitationId,
         super(const HomeState()) {
     if (testing ?? false) return;
     initVideoController();
@@ -26,6 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
         maxAttempts: 5,
         () async {
           await _homeRepository.initFirebase();
+          final invitation = await _homeRepository.getInvitation(_invitationId);
           final videoPlayerController = controller ??
               VideoPlayerController.networkUrl(
                 Uri.parse(
@@ -41,6 +44,7 @@ class HomeCubit extends Cubit<HomeState> {
               videoController: videoPlayerController,
               status: HomeStatus.loaded,
               scrollController: ScrollController(),
+              invitation: invitation,
             ),
           );
         },
@@ -50,5 +54,29 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  Future<void> updateInvitation(Guest? guest) async {
+    try {
+      if (guest == null) return;
+      final newInvitation = state.invitation!.copyWith(
+        guests: state.invitation!.guests
+            ?.map((e) => e.name == guest.name ? guest : e)
+            .toList(),
+      );
+
+      final updated = await _homeRepository.updateInvitation(newInvitation);
+      if (!updated) return;
+
+      emit(
+        HomeState(
+          videoController: state.videoController,
+          status: HomeStatus.loaded,
+          scrollController: state.scrollController,
+          invitation: newInvitation,
+        ),
+      );
+    } catch (_) {}
+  }
+
   final HomeRepository _homeRepository;
+  final String? _invitationId;
 }

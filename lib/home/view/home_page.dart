@@ -13,7 +13,12 @@ import 'package:wedding_invitation/home/widgets/pictures_page.dart';
 import 'package:wedding_invitation/home/widgets/unlock_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({
+    required this.id,
+    super.key,
+  });
+
+  final String? id;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +27,7 @@ class HomePage extends StatelessWidget {
         BlocProvider(
           create: (context) => HomeCubit(
             homeRepository: context.read<HomeRepository>(),
+            invitationId: id,
           ),
         ),
         BlocProvider(

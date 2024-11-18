@@ -11,15 +11,23 @@ class HomeState extends Equatable {
     this.status = HomeStatus.loading,
     this.videoController,
     this.scrollController,
+    this.invitation,
   });
 
   final HomeStatus status;
   final VideoPlayerController? videoController;
   final ScrollController? scrollController;
+  final Invitation? invitation;
 
   bool get isLoading => status == HomeStatus.loading;
   bool get isLoaded => status == HomeStatus.loaded;
   bool get isError => status == HomeStatus.error;
+
+  String? get invitationNames {
+    if (invitation == null) return null;
+    final names = invitation!.guests?.map((e) => e.name).toList().join(' & ');
+    return names;
+  }
 
   @override
   List<Object?> get props => [status];
