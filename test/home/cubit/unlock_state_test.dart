@@ -38,5 +38,12 @@ void main() {
         true,
       );
     });
+
+    test('isLocked returns true when status is locked', () {
+      expect(
+        UnlockStatus.locked.isLocked,
+        true,
+      );
+    });
   });
 }

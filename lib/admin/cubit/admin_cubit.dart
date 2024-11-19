@@ -17,7 +17,8 @@ class AdminCubit extends Cubit<AdminState> {
   Future<void> getInvitations({Invitation? selected}) async {
     try {
       emit(const AdminState());
-      _originalList = await _adminRepository.getInvitations();
+      final invitations = await _adminRepository.getInvitations();
+      _originalList = invitations;
 
       emit(
         AdminState(
@@ -32,13 +33,13 @@ class AdminCubit extends Cubit<AdminState> {
   }
 
   void search(String query) {
+    final invitations =
+        _originalList?.where((e) => e.id?.contains(query) ?? false).toList();
     emit(
       AdminState(
         status: AdminStatus.loaded,
         selectedInvitation: state.selectedInvitation,
-        invitations: _originalList
-            ?.where((e) => e.id?.contains(query) ?? false)
-            .toList(),
+        invitations: invitations,
       ),
     );
   }

@@ -64,7 +64,7 @@ class _InformationPageViewState extends State<InformationPageView> {
             visible: _pageController.hasClients && _pageController.page! > 0,
             child: IconButton(
               icon: const Icon(
-                Icons.arrow_back_ios,
+                Icons.arrow_back_ios_rounded,
                 color: ButtonColors.button2FillColor,
                 size: 32,
               ),
@@ -83,7 +83,7 @@ class _InformationPageViewState extends State<InformationPageView> {
           ),
           SizedBox(
             width: 400,
-            height: 500,
+            height: 520,
             child: PageView(
               controller: _pageController,
               children: const [

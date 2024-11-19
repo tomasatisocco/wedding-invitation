@@ -80,7 +80,7 @@ class _DressCodeExamplesState extends State<DressCodeExamples> {
             visible: _pageController.hasClients && _pageController.page! > 0,
             child: IconButton(
               icon: const Icon(
-                Icons.arrow_back_ios,
+                Icons.arrow_back_ios_rounded,
                 color: ButtonColors.button1TextColor,
               ),
               onPressed: () {

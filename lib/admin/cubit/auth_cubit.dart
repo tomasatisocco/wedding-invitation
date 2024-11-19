@@ -16,8 +16,10 @@ class AuthCubit extends Cubit<AuthStatus> {
   }
 
   Future<void> initializeFirebase() async {
-    await _adminRepository.initFirebase();
-    await listenToUserChanges();
+    try {
+      await _adminRepository.initFirebase();
+      await listenToUserChanges();
+    } catch (_) {}
   }
 
   Future<void> listenToUserChanges() async {

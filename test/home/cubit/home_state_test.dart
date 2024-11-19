@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:home_repository/home_repository.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 
 void main() {
@@ -35,6 +36,21 @@ void main() {
       expect(
         const HomeState(status: HomeStatus.error).isError,
         true,
+      );
+    });
+
+    test('Names are correct', () {
+      expect(
+        const HomeState(
+          invitation: Invitation(
+            id: '1',
+            guests: [
+              Guest(id: '1', name: 'Guest 1'),
+              Guest(id: '2', name: 'Guest 2'),
+            ],
+          ),
+        ).invitationNames,
+        'Guest 1 & Guest 2',
       );
     });
   });
