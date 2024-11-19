@@ -59,7 +59,7 @@ class InvitationsPage extends StatelessWidget {
               ),
               Expanded(
                 child: state.selectedInvitation != null
-                    ? const InvitationWidget()
+                    ? InvitationWidget(invitation: state.selectedInvitation!)
                     : const Center(child: Text('Select an invitation')),
               ),
             ],

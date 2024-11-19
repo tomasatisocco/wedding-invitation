@@ -5,20 +5,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/v4.dart';
-import 'package:wedding_invitation/admin/cubit/admin_cubit.dart';
 import 'package:wedding_invitation/admin/cubit/invitation_cubit.dart';
 import 'package:wedding_invitation/app_colors.dart';
 
 class InvitationWidget extends StatelessWidget {
-  const InvitationWidget({super.key});
+  const InvitationWidget({
+    required this.invitation,
+    super.key,
+  });
+
+  final Invitation invitation;
 
   @override
   Widget build(BuildContext context) {
-    final invitation = context.read<AdminCubit>().state.selectedInvitation;
     return BlocProvider(
       create: (context) => InvitationCubit(
         adminRepository: context.read<AdminRepository>(),
-        invitation: invitation!,
+        invitation: invitation,
       ),
       child: const InvitationWidgetView(),
     );
@@ -47,11 +50,19 @@ class _InvitationWidgetViewState extends State<InvitationWidgetView> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<InvitationCubit>();
-    return BlocBuilder<InvitationCubit, InvitationState>(
+    return BlocConsumer<InvitationCubit, InvitationState>(
+      listener: (context, state) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final note = state.actualInvitation.note;
+          if (note == null) {
+            noteController.clear();
+            return;
+          }
+          noteController.value = noteController.value.copyWith(text: note);
+          setState(() {});
+        });
+      },
       builder: (context, state) {
-        noteController.value = noteController.value.copyWith(
-          text: state.actualInvitation.note,
-        );
         final invitation = state.actualInvitation;
         return Center(
           child: SingleChildScrollView(
@@ -97,9 +108,7 @@ class _InvitationWidgetViewState extends State<InvitationWidgetView> {
                     color: ButtonColors.button1TextColor,
                   ),
                   onPressed: () => cubit.addGuest(
-                    Guest(
-                      id: const UuidV4().generate(),
-                    ),
+                    Guest(id: const UuidV4().generate()),
                   ),
                 ),
               ],
