@@ -85,59 +85,5 @@ void main() {
         verify(() => mockVideoPlayerController.initialize()).called(5);
       },
     );
-
-    blocTest<HomeCubit, HomeState>(
-      'Update invitation successfully',
-      build: () => HomeCubit(
-        testing: true,
-        homeRepository: mockHomeRepository,
-        invitationId: _invitationId,
-      ),
-      setUp: () {
-        when(() => mockHomeRepository.getInvitation(_invitationId)).thenAnswer(
-          (_) async => const Invitation(
-            id: _invitationId,
-            guests: [
-              Guest(name: 'Guest 1'),
-              Guest(name: 'Guest 2'),
-            ],
-          ),
-        );
-        when(mockVideoPlayerController.initialize).thenAnswer((_) async {});
-        when(() => mockVideoPlayerController.setLooping(true)).thenAnswer(
-          (_) async => true,
-        );
-        when(() => mockVideoPlayerController.setVolume(0)).thenAnswer(
-          (_) async => true,
-        );
-        when(mockVideoPlayerController.play).thenAnswer((_) async {});
-        when(
-          () => mockHomeRepository.updateInvitation(
-            const Invitation(
-              id: _invitationId,
-              guests: [
-                Guest(name: 'Guest 1', isAttending: true),
-                Guest(name: 'Guest 2'),
-              ],
-            ),
-          ),
-        ).thenAnswer(
-          (_) async => true,
-        );
-      },
-      act: (cubit) async {
-        await cubit.initVideoController(mockVideoPlayerController);
-        await cubit.updateInvitation(
-          const Guest(
-            name: 'Guest 1',
-            isAttending: true,
-          ),
-        );
-      },
-      expect: () => [
-        const HomeState(),
-        const HomeState(status: HomeStatus.loaded),
-      ],
-    );
   });
 }

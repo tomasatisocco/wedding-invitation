@@ -54,29 +54,6 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future<void> updateInvitation(Guest? guest) async {
-    try {
-      if (guest == null) return;
-      final newInvitation = state.invitation!.copyWith(
-        guests: state.invitation!.guests
-            ?.map((e) => e.name == guest.name ? guest : e)
-            .toList(),
-      );
-
-      final updated = await _homeRepository.updateInvitation(newInvitation);
-      if (!updated) return;
-
-      emit(
-        HomeState(
-          videoController: state.videoController,
-          status: HomeStatus.loaded,
-          scrollController: state.scrollController,
-          invitation: newInvitation,
-        ),
-      );
-    } catch (_) {}
-  }
-
   final HomeRepository _homeRepository;
   final String? _invitationId;
 }

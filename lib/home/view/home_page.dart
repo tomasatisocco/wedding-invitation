@@ -4,6 +4,7 @@ import 'package:home_repository/home_repository.dart';
 import 'package:unlock_repository/unlock_repository.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
+import 'package:wedding_invitation/home/widgets/assistance_page.dart';
 import 'package:wedding_invitation/home/widgets/count_down_page.dart';
 import 'package:wedding_invitation/home/widgets/dress_code_page.dart';
 import 'package:wedding_invitation/home/widgets/foreign_guide_page.dart';
@@ -86,6 +87,7 @@ class _HomeWidget extends StatelessWidget {
             PicturesPage(),
             ForeignGuidePage(),
             GiftPage(),
+            AssistancePage(),
           ],
         ),
       ),
