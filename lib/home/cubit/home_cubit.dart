@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,7 @@ class HomeCubit extends Cubit<HomeState> {
             HomeState(
               videoController: videoPlayerController,
               status: HomeStatus.loaded,
-              scrollController: ScrollController(),
+              scrollController: createScrollController(videoPlayerController),
               invitation: invitation,
             ),
           );
@@ -52,6 +54,16 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       emit(const HomeState(status: HomeStatus.error));
     }
+  }
+
+  ScrollController createScrollController(VideoPlayerController controller) {
+    final scrollController = ScrollController();
+    scrollController.addListener(() {
+      const maxExtent = 1000;
+      final scrolled = scrollController.offset / maxExtent;
+      controller.setVolume(1 - scrolled);
+    });
+    return scrollController;
   }
 
   final HomeRepository _homeRepository;

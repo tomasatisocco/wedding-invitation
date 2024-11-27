@@ -25,7 +25,7 @@ void main() {
     when(() => videoPlayerController.setLooping(true)).thenAnswer(
       (_) async => true,
     );
-    when(() => videoPlayerController.setVolume(0)).thenAnswer(
+    when(() => videoPlayerController.setVolume(any())).thenAnswer(
       (_) async => true,
     );
     when(videoPlayerController.play).thenAnswer((_) async {});
