@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
@@ -18,7 +19,8 @@ class GiftPage extends StatelessWidget {
             Image.asset('assets/images/gift.png', width: 320),
             const Column(
               children: [
-                Text(
+                AutoSizeText(
+                  maxLines: 1,
                   'OBSEQUIOS',
                   style: TextStyle(
                     fontSize: 40,
@@ -28,8 +30,9 @@ class GiftPage extends StatelessWidget {
                 Gap(32),
                 SizedBox(
                   width: 480,
-                  child: Text(
+                  child: AutoSizeText(
                     'Gracias por ser parte de este momento especial.\nSi desean agasajarnos con un regalo, agradecemos que sea una contribución económica, la misma será destinada a nuestra luna de miel y próxima mudanza al extranjero',
+                    maxLines: 7,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 24,

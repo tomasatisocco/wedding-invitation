@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:wedding_invitation/app_colors.dart';
@@ -13,8 +14,9 @@ class ForeignGuidePage extends StatelessWidget {
         Gap(64),
         SizedBox(
           width: 450,
-          child: Text(
+          child: AutoSizeText(
             'Guía para los amigos que vienen de lejos',
+            maxLines: 2,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 32,
@@ -53,37 +55,35 @@ class _InformationPageViewState extends State<InformationPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Visibility(
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            visible: _pageController.hasClients && _pageController.page! > 0,
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios_rounded,
-                color: ButtonColors.button2FillColor,
-                size: 32,
-              ),
-              onPressed: () {
-                _pageController.previousPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.linear,
-                );
-              },
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Visibility(
+          maintainSize: true,
+          maintainAnimation: true,
+          maintainState: true,
+          visible: _pageController.hasClients && _pageController.page! > 0,
+          child: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios_rounded,
+              color: ButtonColors.button2FillColor,
+              size: 32,
             ),
+            onPressed: () {
+              _pageController.previousPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.linear,
+              );
+            },
           ),
-          const Flexible(
-            child: SizedBox(
-              width: 80,
+        ),
+        Flexible(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: 450,
+              maxHeight: 520,
             ),
-          ),
-          SizedBox(
-            width: 400,
-            height: 520,
             child: PageView(
               controller: _pageController,
               children: const [
@@ -93,32 +93,27 @@ class _InformationPageViewState extends State<InformationPageView> {
               ],
             ),
           ),
-          const Flexible(
-            child: SizedBox(
-              width: 80,
+        ),
+        Visibility(
+          visible: _pageController.hasClients && _pageController.page! < 2,
+          maintainSize: true,
+          maintainAnimation: true,
+          maintainState: true,
+          child: IconButton(
+            icon: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: ButtonColors.button2FillColor,
+              size: 32,
             ),
+            onPressed: () {
+              _pageController.nextPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.linear,
+              );
+            },
           ),
-          Visibility(
-            visible: _pageController.hasClients && _pageController.page! < 2,
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_forward_ios_rounded,
-                color: ButtonColors.button2FillColor,
-                size: 32,
-              ),
-              onPressed: () {
-                _pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.linear,
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -140,15 +135,13 @@ class InformationWidget extends StatelessWidget {
     return Column(
       children: [
         const Gap(64),
-        SizedBox(
-          width: 600,
-          child: Text(
-            info.title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 32,
-              color: ButtonColors.button1TextColor,
-            ),
+        AutoSizeText(
+          info.title,
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 32,
+            color: ButtonColors.button1TextColor,
           ),
         ),
         const Gap(32),

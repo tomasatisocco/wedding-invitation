@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wedding_invitation/home/widgets/gifht_page.dart';
+import 'package:wedding_invitation/home/widgets/gift_page.dart';
 
 void main() {
   testWidgets('GiftPage renders correctly', (tester) async {

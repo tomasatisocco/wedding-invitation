@@ -8,7 +8,7 @@ import 'package:wedding_invitation/home/widgets/assistance_page.dart';
 import 'package:wedding_invitation/home/widgets/count_down_page.dart';
 import 'package:wedding_invitation/home/widgets/dress_code_page.dart';
 import 'package:wedding_invitation/home/widgets/foreign_guide_page.dart';
-import 'package:wedding_invitation/home/widgets/gifht_page.dart';
+import 'package:wedding_invitation/home/widgets/gift_page.dart';
 import 'package:wedding_invitation/home/widgets/info_page.dart';
 import 'package:wedding_invitation/home/widgets/pictures_page.dart';
 import 'package:wedding_invitation/home/widgets/unlock_page.dart';

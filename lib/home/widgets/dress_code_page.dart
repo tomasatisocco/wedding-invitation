@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:wedding_invitation/app_colors.dart';
@@ -11,8 +12,9 @@ class DressCodePage extends StatelessWidget {
     return const Column(
       children: [
         Gap(64),
-        Text(
+        AutoSizeText(
           'DRESS CODE',
+          maxLines: 1,
           style: TextStyle(
             fontSize: 40,
             color: ButtonColors.button1TextColor,
@@ -29,8 +31,9 @@ class DressCodePage extends StatelessWidget {
         Gap(32),
         DressCodeExamples(),
         Gap(32),
-        Text(
+        AutoSizeText(
           'Blanco reservado para la novia',
+          maxLines: 1,
           style: TextStyle(
             fontSize: 28,
             color: ButtonColors.button1TextColor,
@@ -91,35 +94,26 @@ class _DressCodeExamplesState extends State<DressCodeExamples> {
               },
             ),
           ),
-          const Flexible(
-            child: SizedBox(
-              width: 80,
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: ButtonColors.button1TextColor),
-            ),
-            width: 300,
-            height: 400,
-            child: PageView(
-              controller: _pageController,
-              children: const [
-                DressItem('assets/images/dress_code_1.png'),
-                DressItem('assets/images/dress_code_2.png'),
-                DressItem('assets/images/dress_code_3.png'),
-                DressItem('assets/images/dress_code_4.png'),
-                DressItem('assets/images/dress_code_5.png'),
-                DressItem('assets/images/dress_code_6.png'),
-                DressItem('assets/images/dress_code_7.png'),
-                DressItem('assets/images/dress_code_8.png'),
-              ],
-            ),
-          ),
-          const Flexible(
-            child: SizedBox(
-              width: 80,
+          Flexible(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: ButtonColors.button1TextColor),
+              ),
+              constraints: const BoxConstraints(maxWidth: 300, maxHeight: 400),
+              child: PageView(
+                controller: _pageController,
+                children: const [
+                  DressItem('assets/images/dress_code_1.png'),
+                  DressItem('assets/images/dress_code_2.png'),
+                  DressItem('assets/images/dress_code_3.png'),
+                  DressItem('assets/images/dress_code_4.png'),
+                  DressItem('assets/images/dress_code_5.png'),
+                  DressItem('assets/images/dress_code_6.png'),
+                  DressItem('assets/images/dress_code_7.png'),
+                  DressItem('assets/images/dress_code_8.png'),
+                ],
+              ),
             ),
           ),
           Visibility(

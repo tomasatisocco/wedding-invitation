@@ -21,18 +21,23 @@ class WeddingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      onPressed: onPressed ?? launchPage,
-      height: height,
-      minWidth: width,
-      elevation: 1,
-      shape: const StadiumBorder(),
-      color: ButtonColors.button1FillColor,
-      child: AutoSizeText(
-        title,
-        style: const TextStyle(
-          color: ButtonColors.button1TextColor,
-          fontSize: 24,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: MaterialButton(
+        onPressed: onPressed ?? launchPage,
+        height: height,
+        minWidth: width,
+        elevation: 1,
+        shape: const StadiumBorder(),
+        color: ButtonColors.button1FillColor,
+        child: AutoSizeText(
+          title,
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: ButtonColors.button1TextColor,
+            fontSize: 24,
+          ),
         ),
       ),
     );
