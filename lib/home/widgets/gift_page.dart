@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:wedding_invitation/app_colors.dart';
 import 'package:wedding_invitation/home/widgets/wedding_button.dart';
+import 'package:wedding_invitation/l10n/l10n.dart';
 
 class GiftPage extends StatelessWidget {
   const GiftPage({super.key});
@@ -17,24 +18,24 @@ class GiftPage extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Image.asset('assets/images/gift.png', width: 320),
-            const Column(
+            Column(
               children: [
                 AutoSizeText(
                   maxLines: 1,
-                  'OBSEQUIOS',
-                  style: TextStyle(
+                  context.l10n.gifts.toUpperCase(),
+                  style: const TextStyle(
                     fontSize: 40,
                     color: ButtonColors.button1TextColor,
                   ),
                 ),
-                Gap(32),
+                const Gap(32),
                 SizedBox(
                   width: 480,
                   child: AutoSizeText(
-                    'Gracias por ser parte de este momento especial.\nSi desean agasajarnos con un regalo, agradecemos que sea una contribución económica, la misma será destinada a nuestra luna de miel y próxima mudanza al extranjero',
+                    context.l10n.giftsDisclaimer,
                     maxLines: 7,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 24,
                       color: ButtonColors.button1TextColor,
                     ),
@@ -46,7 +47,7 @@ class GiftPage extends StatelessWidget {
         ),
         const Gap(64),
         WeddingButton(
-          title: 'Cuenta Bancaria',
+          title: context.l10n.bankInformation,
           url: '',
           onPressed: () => showBankInformation(context),
         ),
@@ -65,9 +66,9 @@ class GiftPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'Cuenta Bancaria',
-                style: TextStyle(
+              Text(
+                context.l10n.bankInformation,
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.w600,
                   color: ButtonColors.button2TextColor,
@@ -113,8 +114,8 @@ class GiftPage extends StatelessWidget {
                   );
                   if (!context.mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Copiado'),
+                    SnackBar(
+                      content: Text(context.l10n.copied),
                     ),
                   );
                   Navigator.pop(context);
@@ -123,9 +124,9 @@ class GiftPage extends StatelessWidget {
                 color: ButtonColors.button1FillColor,
                 height: 48,
                 minWidth: 220,
-                child: const Text(
-                  'Copiar',
-                  style: TextStyle(
+                child: Text(
+                  context.l10n.copy,
+                  style: const TextStyle(
                     fontSize: 20,
                     color: ButtonColors.button1TextColor,
                   ),

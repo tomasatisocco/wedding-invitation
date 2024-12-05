@@ -5,6 +5,7 @@ import 'package:home_repository/home_repository.dart';
 import 'package:wedding_invitation/app_colors.dart';
 import 'package:wedding_invitation/home/cubit/assistance_cubit.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
+import 'package:wedding_invitation/l10n/l10n.dart';
 
 class AssistancePage extends StatelessWidget {
   const AssistancePage({super.key});
@@ -32,9 +33,9 @@ class AssistancePageView extends StatelessWidget {
     return Column(
       children: [
         const Gap(64),
-        const Text(
-          'ASISTENCIA',
-          style: TextStyle(
+        Text(
+          context.l10n.attendance.toUpperCase(),
+          style: const TextStyle(
             fontSize: 40,
             color: ButtonColors.button1TextColor,
           ),
@@ -94,7 +95,7 @@ class GuestAssistance extends StatelessWidget {
           ),
           const Gap(8),
           AssistanceButton(
-            text: 'Si',
+            text: context.l10n.yes,
             isActive: isAttending ?? false,
             onPressed: () async {
               final updatedGuest = guest.copyWith(isAttending: true);
@@ -103,7 +104,7 @@ class GuestAssistance extends StatelessWidget {
           ),
           const Gap(8),
           AssistanceButton(
-            text: 'No',
+            text: context.l10n.no,
             isActive: !(isAttending ?? true),
             onPressed: () async {
               final updatedGuest = guest.copyWith(isAttending: false);
@@ -115,13 +116,13 @@ class GuestAssistance extends StatelessWidget {
             value: guest.dietaryPreference,
             borderRadius: BorderRadius.circular(8),
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            hint: const Text('Restricciones'),
+            hint: Text(context.l10n.restrictions),
             alignment: Alignment.center,
             items: DietaryPreference.values
                 .map(
                   (e) => DropdownMenuItem(
                     value: e,
-                    child: Text(e.title),
+                    child: Text(e.title(context.l10n)),
                   ),
                 )
                 .toList(),
@@ -197,14 +198,14 @@ class ConfirmButton extends StatelessWidget {
             );
           }
           if (state.isConfirmed) {
-            return const Text(
-              'Confirmado',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+            return Text(
+              context.l10n.confirmed,
+              style: const TextStyle(color: Colors.white, fontSize: 20),
             );
           }
-          return const Text(
-            'Confirmar',
-            style: TextStyle(color: Colors.white, fontSize: 20),
+          return Text(
+            context.l10n.confirm,
+            style: const TextStyle(color: Colors.white, fontSize: 20),
           );
         },
       ),
@@ -213,12 +214,12 @@ class ConfirmButton extends StatelessWidget {
 }
 
 extension on DietaryPreference {
-  String get title {
+  String title(AppLocalizations l10n) {
     return switch (this) {
-      DietaryPreference.vegan => 'Vegano',
-      DietaryPreference.celiac => 'Gluten Free',
-      DietaryPreference.vegetarian => 'Vegetariano',
-      DietaryPreference.none => 'Ninguna',
+      DietaryPreference.vegan => l10n.vegan,
+      DietaryPreference.celiac => l10n.glutenFree,
+      DietaryPreference.vegetarian => l10n.vegetarian,
+      DietaryPreference.none => l10n.none,
     };
   }
 }

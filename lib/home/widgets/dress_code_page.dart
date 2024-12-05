@@ -3,44 +3,48 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:wedding_invitation/app_colors.dart';
 import 'package:wedding_invitation/home/widgets/wedding_button.dart';
+import 'package:wedding_invitation/l10n/l10n.dart';
 
 class DressCodePage extends StatelessWidget {
   const DressCodePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        Gap(64),
+        const Gap(64),
         AutoSizeText(
-          'DRESS CODE',
+          context.l10n.dressCode.toUpperCase(),
           maxLines: 1,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 40,
             color: ButtonColors.button1TextColor,
           ),
         ),
-        Gap(32),
+        const Gap(32),
         Text(
-          'FORMAL',
-          style: TextStyle(
+          context.l10n.formal.toUpperCase(),
+          style: const TextStyle(
             fontSize: 32,
             color: ButtonColors.button1TextColor,
           ),
         ),
-        Gap(32),
-        DressCodeExamples(),
-        Gap(32),
+        const Gap(32),
+        const DressCodeExamples(),
+        const Gap(32),
         AutoSizeText(
-          'Blanco reservado para la novia',
+          context.l10n.whiteReserved,
           maxLines: 1,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 28,
             color: ButtonColors.button1TextColor,
           ),
         ),
-        Gap(32),
-        WeddingButton(title: 'Ver Más', url: 'https://pin.it/MtkEDXSyB'),
+        const Gap(32),
+        WeddingButton(
+          title: context.l10n.seeMore,
+          url: 'https://pin.it/MtkEDXSyB',
+        ),
       ],
     );
   }

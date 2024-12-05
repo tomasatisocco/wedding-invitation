@@ -7,6 +7,7 @@ import 'package:wedding_invitation/app_colors.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
 import 'package:wedding_invitation/home/widgets/scroll_down_indicator.dart';
+import 'package:wedding_invitation/l10n/l10n.dart';
 
 class UnlockPage extends StatelessWidget {
   const UnlockPage({super.key});
@@ -106,7 +107,7 @@ class _VideoOverlayState extends State<VideoOverlay>
         }
         if (state.isError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Wrong Password')),
+            SnackBar(content: Text(context.l10n.somethingWrong)),
           );
         }
       },
@@ -120,11 +121,11 @@ class _VideoOverlayState extends State<VideoOverlay>
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const AutoSizeText(
-                'Bienvenidos',
+              AutoSizeText(
+                context.l10n.welcome,
                 textAlign: TextAlign.center,
                 maxLines: 1,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 40,
                   color: Colors.white,
                 ),
@@ -145,7 +146,7 @@ class _VideoOverlayState extends State<VideoOverlay>
                 key: const Key('unlock_password'),
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  hintText: 'ENTER  PASSWORD',
+                  hintText: context.l10n.enterPassword.toUpperCase(),
                   hintStyle: const TextStyle(
                     color: ButtonColors.button1TextColor,
                   ),
@@ -185,8 +186,8 @@ class _VideoOverlayState extends State<VideoOverlay>
                       builder: (context, state) {
                         return Text(
                           (state.isUnlocking || state.isUnlocked)
-                              ? 'SUBMITTING...'
-                              : 'SUBMIT',
+                              ? context.l10n.submitting.toUpperCase()
+                              : context.l10n.submit.toUpperCase(),
                           style: const TextStyle(
                             fontSize: 20,
                             color: ButtonColors.button2TextColor,

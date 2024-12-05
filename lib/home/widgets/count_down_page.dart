@@ -3,58 +3,59 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:wedding_invitation/app_colors.dart';
+import 'package:wedding_invitation/l10n/l10n.dart';
 
 class CountDownPage extends StatelessWidget {
   const CountDownPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        Gap(32),
-        Text(
+        const Gap(32),
+        const Text(
           'TOMI & EMI',
           style: TextStyle(
             fontSize: 40,
             color: ButtonColors.button1TextColor,
           ),
         ),
-        Gap(64),
+        const Gap(64),
         SizedBox(
           width: 300,
           child: Text(
-            'NUESTRA BODA',
+            context.l10n.ourWedding.toUpperCase(),
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 40,
               color: ButtonColors.button1TextColor,
               fontWeight: FontWeight.w600,
             ),
           ),
         ),
-        Gap(32),
+        const Gap(32),
         SizedBox(
           width: 400,
           child: Text(
-            'Y después de 10 años empieza el "para siempre" que tanto soñamos...',
+            context.l10n.afterAllThisTime,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               color: ButtonColors.button1TextColor,
             ),
           ),
         ),
-        Gap(64),
+        const Gap(64),
         AutoSizeText(
-          '¡Falta cada vez menos!',
+          context.l10n.almostThere,
           maxLines: 1,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 40,
             color: ButtonColors.button1TextColor,
           ),
         ),
-        Gap(32),
-        CountdownTimer(),
+        const Gap(32),
+        const CountdownTimer(),
       ],
     );
   }
@@ -106,10 +107,10 @@ class CountdownTimerState extends State<CountdownTimer> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            TimeIndicator(time: days, title: 'DAYS'),
-            TimeIndicator(time: hours, title: 'HOURS'),
-            TimeIndicator(time: minutes, title: 'MINUTES'),
-            TimeIndicator(time: seconds, title: 'SECONDS'),
+            TimeIndicator(time: days, title: context.l10n.days),
+            TimeIndicator(time: hours, title: context.l10n.hours),
+            TimeIndicator(time: minutes, title: context.l10n.minutes),
+            TimeIndicator(time: seconds, title: context.l10n.seconds),
           ],
         ),
       ),

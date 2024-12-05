@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:wedding_invitation/admin/cubit/admin_cubit.dart';
 import 'package:wedding_invitation/admin/widgets/invitation_widget.dart';
 import 'package:wedding_invitation/app_colors.dart';
+import 'package:wedding_invitation/l10n/l10n.dart';
 
 class InvitationsPage extends StatelessWidget {
   const InvitationsPage({super.key});
@@ -15,8 +16,8 @@ class InvitationsPage extends StatelessWidget {
       child: BlocBuilder<AdminCubit, AdminState>(
         builder: (context, state) {
           if (state.isError) {
-            return const Center(
-              child: Text('Error'),
+            return Center(
+              child: Text(context.l10n.error),
             );
           }
           if (state.isLoading) {
@@ -60,7 +61,7 @@ class InvitationsPage extends StatelessWidget {
               Expanded(
                 child: state.selectedInvitation != null
                     ? InvitationWidget(invitation: state.selectedInvitation!)
-                    : const Center(child: Text('Select an invitation')),
+                    : Center(child: Text(context.l10n.selectAnInvitation)),
               ),
             ],
           );
@@ -75,7 +76,7 @@ class InvitationsPage extends StatelessWidget {
       builder: (context) {
         String? string;
         return AlertDialog(
-          title: const Text('Add invitation'),
+          title: Text(context.l10n.addInvitation),
           content: TextField(
             autofocus: true,
             decoration: const InputDecoration(
@@ -88,11 +89,11 @@ class InvitationsPage extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              child: Text(context.l10n.cancel),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, string),
-              child: const Text('Add'),
+              child: Text(context.l10n.add),
             ),
           ],
         );

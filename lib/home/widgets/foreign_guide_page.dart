@@ -3,28 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:wedding_invitation/app_colors.dart';
 import 'package:wedding_invitation/home/widgets/wedding_button.dart';
+import 'package:wedding_invitation/l10n/l10n.dart';
 
 class ForeignGuidePage extends StatelessWidget {
   const ForeignGuidePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        Gap(64),
+        const Gap(64),
         SizedBox(
           width: 450,
           child: AutoSizeText(
-            'Guía para los amigos que vienen de lejos',
+            context.l10n.guideForForeigners,
             maxLines: 2,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 32,
               color: ButtonColors.button1TextColor,
             ),
           ),
         ),
-        InformationPageView(),
+        const InformationPageView(),
       ],
     );
   }
