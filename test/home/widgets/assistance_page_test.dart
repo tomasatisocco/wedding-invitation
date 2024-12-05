@@ -7,6 +7,8 @@ import 'package:video_player/video_player.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/widgets/assistance_page.dart';
 
+import '../../helpers/pump_app.dart';
+
 class MockHomeRepository extends Mock implements HomeRepository {}
 
 class MockVideoPlayerController extends Mock implements VideoPlayerController {}
@@ -70,26 +72,22 @@ void main() {
     );
 
     await homeCubit.initVideoController(videoPlayerController);
-    await tester.pumpWidget(
-      MaterialApp(
-        builder: (context, child) {
-          return Scaffold(
-            body: RepositoryProvider(
-              create: (context) => homeRepository,
-              child: BlocProvider<HomeCubit>(
-                create: (_) => homeCubit,
-                child: const SingleChildScrollView(
-                  child: AssistancePage(),
-                ),
-              ),
+    await tester.pumpApp(
+      Scaffold(
+        body: RepositoryProvider(
+          create: (context) => homeRepository,
+          child: BlocProvider<HomeCubit>(
+            create: (_) => homeCubit,
+            child: const SingleChildScrollView(
+              child: AssistancePage(),
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
 
-    expect(find.text('ASISTENCIA'), findsOneWidget);
-    expect(find.text('Si'), findsNWidgets(2));
+    expect(find.text('ATTENDANCE'), findsOneWidget);
+    expect(find.text('Yes'), findsNWidgets(2));
     expect(find.text('No'), findsNWidgets(2));
     expect(find.byType(ConfirmButton), findsOneWidget);
   });
@@ -102,31 +100,27 @@ void main() {
     );
 
     await homeCubit.initVideoController(videoPlayerController);
-    await tester.pumpWidget(
-      MaterialApp(
-        builder: (context, child) {
-          return Scaffold(
-            body: RepositoryProvider(
-              create: (context) => homeRepository,
-              child: BlocProvider<HomeCubit>(
-                create: (_) => homeCubit,
-                child: const SingleChildScrollView(
-                  child: AssistancePage(),
-                ),
-              ),
+    await tester.pumpApp(
+      Scaffold(
+        body: RepositoryProvider(
+          create: (context) => homeRepository,
+          child: BlocProvider<HomeCubit>(
+            create: (_) => homeCubit,
+            child: const SingleChildScrollView(
+              child: AssistancePage(),
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
 
-    await tester.scrollUntilVisible(find.text('Confirmar'), 50);
-    await tester.tap(find.text('Si').first);
+    await tester.scrollUntilVisible(find.text('Confirm'), 50);
+    await tester.tap(find.text('Yes').first);
     await tester.tap(find.text('No').last);
     await tester.pumpAndSettle();
     await tester.tap(find.byType(ConfirmButton));
     await tester.pumpAndSettle();
 
-    expect(find.text('Confirmado'), findsOneWidget);
+    expect(find.text('Confirmed'), findsOneWidget);
   });
 }

@@ -2,28 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wedding_invitation/home/widgets/foreign_guide_page.dart';
 
+import '../../helpers/helpers.dart';
+
 void main() {
   testWidgets('ForeignGuidePage renders correctly', (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: SingleChildScrollView(
-          child: ForeignGuidePage(),
-        ),
+    await tester.pumpApp(
+      const SingleChildScrollView(
+        child: ForeignGuidePage(),
       ),
     );
 
     expect(
-      find.text('Guía para los amigos que vienen de lejos'),
+      find.text('Guide for foreigners'),
       findsOneWidget,
     );
   });
 
   testWidgets('ForeignGuidePage renders first info code image', (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: SingleChildScrollView(
-          child: ForeignGuidePage(),
-        ),
+    await tester.pumpApp(
+      const SingleChildScrollView(
+        child: ForeignGuidePage(),
       ),
     );
 
@@ -32,11 +30,9 @@ void main() {
 
   testWidgets('DressCodePage change dress information successfully',
       (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: SingleChildScrollView(
-          child: ForeignGuidePage(),
-        ),
+    await tester.pumpApp(
+      const SingleChildScrollView(
+        child: ForeignGuidePage(),
       ),
     );
 
@@ -48,11 +44,9 @@ void main() {
 
   testWidgets('DressCodePage change back dress information successfully',
       (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: SingleChildScrollView(
-          child: ForeignGuidePage(),
-        ),
+    await tester.pumpApp(
+      const SingleChildScrollView(
+        child: ForeignGuidePage(),
       ),
     );
 

@@ -1,10 +1,10 @@
 import 'package:admin_repository/admin_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:wedding_invitation/admin/view/admin_page.dart';
 
+import '../../helpers/helpers.dart';
 import '../../mocks.dart';
 
 void main() {
@@ -25,42 +25,40 @@ void main() {
     );
   });
 
-  testWidgets('AdminPage renders correctly', (tester) async {
-    await tester.pumpWidget(
-      RepositoryProvider(
-        create: (context) => mockAdminRepository,
-        child: MaterialApp(
-          home: RepositoryProvider(
+  group('AdminPage', () {
+    testWidgets('AdminPage renders correctly', (tester) async {
+      await tester.pumpApp(
+        RepositoryProvider(
+          create: (context) => mockAdminRepository,
+          child: RepositoryProvider(
             create: (context) => mockAdminRepository,
             child: const AdminPage(),
           ),
         ),
-      ),
-    );
+      );
 
-    await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
-    expect(find.text('Login'), findsOneWidget);
-  });
+      expect(find.text('Login'), findsOneWidget);
+    });
 
-  testWidgets('AdminPage logins successfully', (tester) async {
-    await tester.pumpWidget(
-      RepositoryProvider(
-        create: (context) => mockAdminRepository,
-        child: MaterialApp(
-          home: RepositoryProvider(
+    testWidgets('AdminPage logins successfully', (tester) async {
+      await tester.pumpApp(
+        RepositoryProvider(
+          create: (context) => mockAdminRepository,
+          child: RepositoryProvider(
             create: (context) => mockAdminRepository,
             child: const AdminPage(),
           ),
         ),
-      ),
-    );
+      );
 
-    await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Login'));
-    await tester.pumpAndSettle();
+      await tester.tap(find.text('Login'));
+      await tester.pumpAndSettle();
 
-    expect(find.text('Error'), findsOneWidget);
+      expect(find.text('Error'), findsOneWidget);
+    });
   });
 }

@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 import 'package:wedding_invitation/home/widgets/wedding_button.dart';
+
+import '../../helpers/pump_app.dart';
 
 class MockUrlLauncher extends Mock
     with MockPlatformInterfaceMixin
@@ -29,13 +30,11 @@ void main() {
   });
 
   testWidgets('WeddingButton renders correctly', (tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: WeddingButton(
-          onPressed: () {},
-          title: 'Test Button',
-          url: 'https://example.com',
-        ),
+    await tester.pumpApp(
+      WeddingButton(
+        onPressed: () {},
+        title: 'Test Button',
+        url: 'https://example.com',
       ),
     );
 
@@ -45,15 +44,13 @@ void main() {
 
   testWidgets('WeddingButton calls onPressed when tapped', (tester) async {
     var wasPressed = false;
-    await tester.pumpWidget(
-      MaterialApp(
-        home: WeddingButton(
-          onPressed: () {
-            wasPressed = true;
-          },
-          title: 'Test Button',
-          url: '',
-        ),
+    await tester.pumpApp(
+      WeddingButton(
+        onPressed: () {
+          wasPressed = true;
+        },
+        title: 'Test Button',
+        url: '',
       ),
     );
 
@@ -65,12 +62,10 @@ void main() {
     final mockLauncher = _setupMockUrlLauncher();
     UrlLauncherPlatform.instance = mockLauncher;
 
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: WeddingButton(
-          title: 'Test Button',
-          url: 'https://example.com',
-        ),
+    await tester.pumpApp(
+      WeddingButton(
+        title: 'Test Button',
+        url: 'https://example.com',
       ),
     );
 

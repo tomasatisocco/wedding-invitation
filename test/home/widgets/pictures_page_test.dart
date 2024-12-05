@@ -7,6 +7,7 @@ import 'package:video_player/video_player.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/widgets/pictures_page.dart';
 
+import '../../helpers/helpers.dart';
 import '../cubit/home_cubit_test.dart';
 
 void main() {
@@ -45,20 +46,18 @@ void main() {
       testing: true,
     );
     await homeCubit.initVideoController(videoPlayerController);
-    await tester.pumpWidget(
-      MaterialApp(
-        home: BlocProvider(
-          create: (_) => homeCubit,
-          child: SingleChildScrollView(
-            controller: homeCubit.state.scrollController,
-            child: const Column(
-              children: [
-                SizedBox(
-                  height: 2400,
-                ),
-                PicturesPage(),
-              ],
-            ),
+    await tester.pumpApp(
+      BlocProvider(
+        create: (_) => homeCubit,
+        child: SingleChildScrollView(
+          controller: homeCubit.state.scrollController,
+          child: const Column(
+            children: [
+              SizedBox(
+                height: 2400,
+              ),
+              PicturesPage(),
+            ],
           ),
         ),
       ),

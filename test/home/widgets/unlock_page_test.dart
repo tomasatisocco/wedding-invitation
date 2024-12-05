@@ -9,6 +9,8 @@ import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
 import 'package:wedding_invitation/home/widgets/unlock_page.dart';
 
+import '../../helpers/pump_app.dart';
+
 class MockHomeRepository extends Mock implements HomeRepository {}
 
 class MockVideoPlayerController extends Mock implements VideoPlayerController {}
@@ -59,25 +61,21 @@ void main() {
       invitationId: _invitationId,
       testing: true,
     );
-    await tester.pumpWidget(
-      MaterialApp(
-        builder: (context, child) {
-          return Scaffold(
-            body: MultiBlocProvider(
-              providers: [
-                BlocProvider<HomeCubit>(
-                  create: (_) => homeCubit,
-                ),
-                BlocProvider(
-                  create: (_) => UnlockCubit(
-                    unlockRepository: unlockRepository,
-                  ),
-                ),
-              ],
-              child: const UnlockPage(),
+    await tester.pumpApp(
+      Scaffold(
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider<HomeCubit>(
+              create: (_) => homeCubit,
             ),
-          );
-        },
+            BlocProvider(
+              create: (_) => UnlockCubit(
+                unlockRepository: unlockRepository,
+              ),
+            ),
+          ],
+          child: const UnlockPage(),
+        ),
       ),
     );
 
@@ -93,33 +91,29 @@ void main() {
       invitationId: _invitationId,
       testing: true,
     );
-    await tester.pumpWidget(
-      MaterialApp(
-        builder: (context, child) {
-          return Overlay(
-            initialEntries: [
-              OverlayEntry(
-                builder: (context) {
-                  return Scaffold(
-                    body: MultiBlocProvider(
-                      providers: [
-                        BlocProvider<HomeCubit>(
-                          create: (_) => homeCubit,
-                        ),
-                        BlocProvider(
-                          create: (_) => UnlockCubit(
-                            unlockRepository: unlockRepository,
-                          ),
-                        ),
-                      ],
-                      child: const UnlockPage(),
+    await tester.pumpApp(
+      Overlay(
+        initialEntries: [
+          OverlayEntry(
+            builder: (context) {
+              return Scaffold(
+                body: MultiBlocProvider(
+                  providers: [
+                    BlocProvider<HomeCubit>(
+                      create: (_) => homeCubit,
                     ),
-                  );
-                },
-              ),
-            ],
-          );
-        },
+                    BlocProvider(
+                      create: (_) => UnlockCubit(
+                        unlockRepository: unlockRepository,
+                      ),
+                    ),
+                  ],
+                  child: const UnlockPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
 
@@ -127,7 +121,7 @@ void main() {
     await tester.tap(find.text('SUBMIT'));
     await tester.pump();
 
-    expect(find.text('Wrong Password'), findsOneWidget);
+    expect(find.text('Something went wrong'), findsOneWidget);
   });
 
   testWidgets('Correct Password is displayed', (tester) async {
@@ -137,27 +131,23 @@ void main() {
       testing: true,
     );
     final unlockCubit = UnlockCubit(unlockRepository: unlockRepository);
-    await tester.pumpWidget(
-      MaterialApp(
-        builder: (context, child) {
-          return Overlay(
-            initialEntries: [
-              OverlayEntry(
-                builder: (context) {
-                  return Scaffold(
-                    body: MultiBlocProvider(
-                      providers: [
-                        BlocProvider<HomeCubit>(create: (_) => homeCubit),
-                        BlocProvider(create: (_) => unlockCubit),
-                      ],
-                      child: const UnlockPage(),
-                    ),
-                  );
-                },
-              ),
-            ],
-          );
-        },
+    await tester.pumpApp(
+      Overlay(
+        initialEntries: [
+          OverlayEntry(
+            builder: (context) {
+              return Scaffold(
+                body: MultiBlocProvider(
+                  providers: [
+                    BlocProvider<HomeCubit>(create: (_) => homeCubit),
+                    BlocProvider(create: (_) => unlockCubit),
+                  ],
+                  child: const UnlockPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
 

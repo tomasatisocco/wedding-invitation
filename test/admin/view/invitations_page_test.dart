@@ -7,6 +7,7 @@ import 'package:wedding_invitation/admin/cubit/admin_cubit.dart';
 import 'package:wedding_invitation/admin/cubit/auth_cubit.dart';
 import 'package:wedding_invitation/admin/view/invitations_page.dart';
 
+import '../../helpers/helpers.dart';
 import '../../mocks.dart';
 
 void main() {
@@ -40,17 +41,15 @@ void main() {
     final adminCubit = AdminCubit(adminRepository: mockAdminRepository);
     final authCubit = AuthCubit(adminRepository: mockAdminRepository);
 
-    await tester.pumpWidget(
+    await tester.pumpApp(
       MultiBlocProvider(
         providers: [
           BlocProvider.value(value: adminCubit),
           BlocProvider.value(value: authCubit),
         ],
-        child: MaterialApp(
-          home: RepositoryProvider(
-            create: (context) => mockAdminRepository,
-            child: const InvitationsPage(),
-          ),
+        child: RepositoryProvider(
+          create: (context) => mockAdminRepository,
+          child: const InvitationsPage(),
         ),
       ),
     );
@@ -65,17 +64,15 @@ void main() {
     final adminCubit = AdminCubit(adminRepository: mockAdminRepository);
     final authCubit = AuthCubit(adminRepository: mockAdminRepository);
 
-    await tester.pumpWidget(
+    await tester.pumpApp(
       MultiBlocProvider(
         providers: [
           BlocProvider.value(value: adminCubit),
           BlocProvider.value(value: authCubit),
         ],
-        child: MaterialApp(
-          home: RepositoryProvider(
-            create: (context) => mockAdminRepository,
-            child: const InvitationsPage(),
-          ),
+        child: RepositoryProvider(
+          create: (context) => mockAdminRepository,
+          child: const InvitationsPage(),
         ),
       ),
     );
@@ -94,17 +91,15 @@ void main() {
     final adminCubit = AdminCubit(adminRepository: mockAdminRepository);
     final authCubit = AuthCubit(adminRepository: mockAdminRepository);
 
-    await tester.pumpWidget(
+    await tester.pumpApp(
       MultiBlocProvider(
         providers: [
           BlocProvider.value(value: adminCubit),
           BlocProvider.value(value: authCubit),
         ],
-        child: MaterialApp(
-          home: RepositoryProvider(
-            create: (context) => mockAdminRepository,
-            child: const InvitationsPage(),
-          ),
+        child: RepositoryProvider(
+          create: (context) => mockAdminRepository,
+          child: const InvitationsPage(),
         ),
       ),
     );
@@ -122,7 +117,7 @@ void main() {
     expect(find.text('Add'), findsOneWidget);
     await tester.tap(find.text('Add'));
     await tester.pumpAndSettle();
-    expect(find.text('Notas'), findsOneWidget);
+    expect(find.text('Notes'), findsOneWidget);
   });
 
   testWidgets('Select invitation', (tester) async {
@@ -134,17 +129,15 @@ void main() {
     final adminCubit = AdminCubit(adminRepository: mockAdminRepository);
     final authCubit = AuthCubit(adminRepository: mockAdminRepository);
 
-    await tester.pumpWidget(
+    await tester.pumpApp(
       MultiBlocProvider(
         providers: [
           BlocProvider.value(value: adminCubit),
           BlocProvider.value(value: authCubit),
         ],
-        child: MaterialApp(
-          home: RepositoryProvider(
-            create: (context) => mockAdminRepository,
-            child: const InvitationsPage(),
-          ),
+        child: RepositoryProvider(
+          create: (context) => mockAdminRepository,
+          child: const InvitationsPage(),
         ),
       ),
     );
@@ -153,6 +146,6 @@ void main() {
 
     await tester.tap(find.text('1'));
     await tester.pumpAndSettle();
-    expect(find.text('Notas'), findsOneWidget);
+    expect(find.text('Notes'), findsOneWidget);
   });
 }

@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:wedding_invitation/admin/widgets/invitation_widget.dart';
 
+import '../../helpers/helpers.dart';
 import '../../mocks.dart';
 
 void main() {
@@ -29,15 +30,11 @@ void main() {
   testWidgets(
     'InvitationWidget renders correctly',
     (tester) async {
-      await tester.pumpWidget(
+      await tester.pumpApp(
         RepositoryProvider(
           create: (context) => mockAdminRepository,
-          child: MaterialApp(
-            home: Material(
-              child: InvitationWidget(
-                invitation: mockInvitation,
-              ),
-            ),
+          child: Material(
+            child: InvitationWidget(invitation: mockInvitation),
           ),
         ),
       );
@@ -49,15 +46,11 @@ void main() {
   testWidgets(
     'InvitationWidget Add note correctly',
     (tester) async {
-      await tester.pumpWidget(
+      await tester.pumpApp(
         RepositoryProvider(
           create: (context) => mockAdminRepository,
-          child: MaterialApp(
-            home: Material(
-              child: InvitationWidget(
-                invitation: mockInvitation,
-              ),
-            ),
+          child: Material(
+            child: InvitationWidget(invitation: mockInvitation),
           ),
         ),
       );
@@ -73,15 +66,11 @@ void main() {
   testWidgets(
     'InvitationWidget reset note correctly',
     (tester) async {
-      await tester.pumpWidget(
+      await tester.pumpApp(
         RepositoryProvider(
           create: (context) => mockAdminRepository,
-          child: MaterialApp(
-            home: Material(
-              child: InvitationWidget(
-                invitation: mockInvitation,
-              ),
-            ),
+          child: Material(
+            child: InvitationWidget(invitation: mockInvitation),
           ),
         ),
       );
@@ -98,14 +87,12 @@ void main() {
   testWidgets(
     'InvitationWidget Save note correctly',
     (tester) async {
-      await tester.pumpWidget(
+      await tester.pumpApp(
         RepositoryProvider(
           create: (context) => mockAdminRepository,
-          child: MaterialApp(
-            home: Material(
-              child: InvitationWidget(
-                invitation: mockInvitation,
-              ),
+          child: Material(
+            child: InvitationWidget(
+              invitation: mockInvitation,
             ),
           ),
         ),
@@ -113,7 +100,7 @@ void main() {
 
       await tester.enterText(find.byType(TextField).first, 'Test note');
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Guardar').first);
+      await tester.tap(find.text('Save').first);
       await tester.pumpAndSettle();
 
       verify(() => mockAdminRepository.updateInvitation(any())).called(1);
@@ -123,15 +110,13 @@ void main() {
   testWidgets(
     'InvitationWidget add guest correctly',
     (tester) async {
-      await tester.pumpWidget(
+      await tester.pumpApp(
         RepositoryProvider(
           create: (context) => mockAdminRepository,
-          child: MaterialApp(
-            home: Material(
-              child: SingleChildScrollView(
-                child: InvitationWidget(
-                  invitation: mockInvitation,
-                ),
+          child: Material(
+            child: SingleChildScrollView(
+              child: InvitationWidget(
+                invitation: mockInvitation,
               ),
             ),
           ),
@@ -153,14 +138,12 @@ void main() {
   testWidgets(
     'InvitationWidget delete guest correctly',
     (tester) async {
-      await tester.pumpWidget(
+      await tester.pumpApp(
         RepositoryProvider(
           create: (context) => mockAdminRepository,
-          child: MaterialApp(
-            home: Material(
-              child: InvitationWidget(
-                invitation: mockInvitation,
-              ),
+          child: Material(
+            child: InvitationWidget(
+              invitation: mockInvitation,
             ),
           ),
         ),
@@ -181,15 +164,13 @@ void main() {
   testWidgets(
     'InvitationWidget update guest name correctly',
     (tester) async {
-      await tester.pumpWidget(
+      await tester.pumpApp(
         RepositoryProvider(
           create: (context) => mockAdminRepository,
-          child: MaterialApp(
-            home: Material(
-              child: SingleChildScrollView(
-                child: InvitationWidget(
-                  invitation: mockInvitation,
-                ),
+          child: Material(
+            child: SingleChildScrollView(
+              child: InvitationWidget(
+                invitation: mockInvitation,
               ),
             ),
           ),
@@ -211,15 +192,13 @@ void main() {
   testWidgets(
     'InvitationWidget confirm guest correctly',
     (tester) async {
-      await tester.pumpWidget(
+      await tester.pumpApp(
         RepositoryProvider(
           create: (context) => mockAdminRepository,
-          child: MaterialApp(
-            home: Material(
-              child: SingleChildScrollView(
-                child: InvitationWidget(
-                  invitation: mockInvitation,
-                ),
+          child: Material(
+            child: SingleChildScrollView(
+              child: InvitationWidget(
+                invitation: mockInvitation,
               ),
             ),
           ),
