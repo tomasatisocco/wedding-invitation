@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/v4.dart';
 import 'package:wedding_invitation/admin/cubit/invitation_cubit.dart';
 import 'package:wedding_invitation/app_colors.dart';
+import 'package:wedding_invitation/l10n/l10n.dart';
 
 class InvitationWidget extends StatelessWidget {
   const InvitationWidget({
@@ -87,9 +88,9 @@ class _InvitationWidgetViewState extends State<InvitationWidgetView> {
                     padding: const EdgeInsets.all(16),
                     child: TextField(
                       controller: noteController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Notas',
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: context.l10n.notes,
                       ),
                       onChanged: (value) {
                         final newNote = invitation.copyWith(note: value);
@@ -145,9 +146,9 @@ class SaveResetButton extends StatelessWidget {
                                 CircularProgressIndicator(color: Colors.white),
                           ),
                         )
-                      : const Text(
-                          'Guardar',
-                          style: TextStyle(color: Colors.white),
+                      : Text(
+                          context.l10n.save,
+                          style: const TextStyle(color: Colors.white),
                         ),
                 ),
                 const Gap(16),
@@ -156,9 +157,9 @@ class SaveResetButton extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                   ),
-                  child: const Text(
-                    'Reset',
-                    style: TextStyle(color: Colors.white),
+                  child: Text(
+                    context.l10n.reset,
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
               ],
@@ -249,9 +250,9 @@ class _GuestWidgetState extends State<GuestWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Gap(16),
-                const Text(
-                  'Asistencia:',
-                  style: TextStyle(
+                Text(
+                  context.l10n.attendance,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: ButtonColors.button1TextColor,
                   ),
@@ -270,9 +271,9 @@ class _GuestWidgetState extends State<GuestWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Gap(16),
-                const Text(
-                  'Confirmado:',
-                  style: TextStyle(
+                Text(
+                  context.l10n.confirmed,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: ButtonColors.button1TextColor,
                   ),
@@ -291,9 +292,9 @@ class _GuestWidgetState extends State<GuestWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Gap(16),
-                const Text(
-                  'Restricciones :',
-                  style: TextStyle(
+                Text(
+                  context.l10n.restrictions,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: ButtonColors.button1TextColor,
                   ),
@@ -359,9 +360,9 @@ class ShareWidget extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: copyToClipboard,
-                child: const Text(
-                  'Copiar',
-                  style: TextStyle(
+                child: Text(
+                  context.l10n.copy,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: ButtonColors.button1TextColor,
                   ),
@@ -370,9 +371,9 @@ class ShareWidget extends StatelessWidget {
               const Gap(16),
               TextButton(
                 onPressed: shareWhatsApp,
-                child: const Text(
-                  'Compartir',
-                  style: TextStyle(
+                child: Text(
+                  context.l10n.share,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: ButtonColors.button1TextColor,
                   ),

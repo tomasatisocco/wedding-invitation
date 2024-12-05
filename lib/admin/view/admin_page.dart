@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:wedding_invitation/admin/cubit/admin_cubit.dart';
 import 'package:wedding_invitation/admin/cubit/auth_cubit.dart';
 import 'package:wedding_invitation/admin/view/invitations_page.dart';
+import 'package:wedding_invitation/l10n/l10n.dart';
 
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});
@@ -64,14 +65,14 @@ class LoginPage extends StatelessWidget {
                   onPressed: () {
                     context.read<AuthCubit>().authenticateWithGoogle();
                   },
-                  child: const Text('Login'),
+                  child: Text(context.l10n.login),
                 ),
                 const Gap(8),
                 Visibility(
                   visible: state.isError,
-                  child: const Text(
-                    'Error',
-                    style: TextStyle(color: Colors.red),
+                  child: Text(
+                    context.l10n.error,
+                    style: const TextStyle(color: Colors.red),
                   ),
                 ),
               ],

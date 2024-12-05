@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:wedding_invitation/app_colors.dart';
 import 'package:wedding_invitation/home/widgets/wedding_button.dart';
+import 'package:wedding_invitation/l10n/l10n.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({super.key});
@@ -12,8 +13,8 @@ class InfoPage extends StatelessWidget {
     return Column(
       children: [
         const Gap(32),
-        const WeddingButton(
-          title: 'Agendar Recordatorio',
+        WeddingButton(
+          title: context.l10n.scheduleReminder,
           url: 'https://calendar.app.google/geQtKQGj3BLEt11KA',
           height: 48,
           width: 220,
@@ -62,8 +63,8 @@ class InfoPage extends StatelessWidget {
           ),
         ),
         const Gap(32),
-        const WeddingButton(
-          title: 'Ver Mapa',
+        WeddingButton(
+          title: context.l10n.seeMap,
           url: 'https://maps.app.goo.gl/WLPnUwETkKjRZ3o8A',
           height: 48,
           width: 220,
