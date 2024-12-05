@@ -63,7 +63,7 @@ void main() {
     UrlLauncherPlatform.instance = mockLauncher;
 
     await tester.pumpApp(
-      WeddingButton(
+      const WeddingButton(
         title: 'Test Button',
         url: 'https://example.com',
       ),
