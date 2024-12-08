@@ -74,7 +74,7 @@ class _HomeWidget extends StatelessWidget {
         context.select((UnlockCubit cubit) => cubit.state.isLocked);
     final scrollController = context.read<HomeCubit>().state.scrollController;
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF8F8),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: isLocked ? const NeverScrollableScrollPhysics() : null,
         controller: scrollController,
@@ -95,57 +95,14 @@ class _HomeWidget extends StatelessWidget {
   }
 }
 
-class _SplashPage extends StatefulWidget {
+class _SplashPage extends StatelessWidget {
   const _SplashPage();
-  @override
-  _SplashPageState createState() => _SplashPageState();
-}
-
-class _SplashPageState extends State<_SplashPage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..repeat(reverse: true);
-
-    _scaleAnimation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ColoredBox(
-        color: const Color(0xFFFFF8F8),
-        child: Center(
-          child: AnimatedBuilder(
-            animation: _scaleAnimation,
-            builder: (context, child) {
-              return AnimatedScale(
-                scale: 3 + 1 * _scaleAnimation.value,
-                duration: const Duration(seconds: 1),
-                child: Image.asset(
-                  'assets/images/wedding_logo.png',
-                  width: 150,
-                ),
-              );
-            },
-          ),
-        ),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Image.asset('assets/gif/splash.gif'),
       ),
     );
   }

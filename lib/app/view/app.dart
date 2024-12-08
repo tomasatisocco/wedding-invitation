@@ -19,9 +19,7 @@ class App extends StatelessWidget {
     final isAdmin = id == 'admin';
     return MaterialApp(
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        ),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
         useMaterial3: true,
         textTheme: GoogleFonts.prataTextTheme(textTheme),
       ),
