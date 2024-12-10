@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wedding_invitation/app_colors.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
 import 'package:wedding_invitation/home/widgets/scroll_down_indicator.dart';
+import 'package:wedding_invitation/home/widgets/wedding_button.dart';
 import 'package:wedding_invitation/l10n/l10n.dart';
 
 class UnlockPage extends StatelessWidget {
@@ -141,62 +141,73 @@ class _VideoOverlayState extends State<VideoOverlay>
                 ),
               ),
               const Gap(16),
-              TextFormField(
-                controller: _textEditingController,
-                key: const Key('unlock_password'),
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  hintText: context.l10n.enterPassword.toUpperCase(),
-                  hintStyle: const TextStyle(
-                    color: ButtonColors.button1TextColor,
-                  ),
-                  fillColor: ButtonColors.button1FillColor,
-                  constraints: const BoxConstraints(
-                    maxWidth: 500,
-                    minWidth: 300,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                ),
-              ),
-              const Gap(16),
               Container(
                 constraints: const BoxConstraints(
                   maxWidth: 500,
                   minWidth: 300,
-                  maxHeight: 50,
+                  maxHeight: 56,
                 ),
+                padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: MaterialButton(
-                  onPressed: () => context
-                      .read<UnlockCubit>()
-                      .unlock(_textEditingController.text),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xFFa17a2d),
+                      Color(0xFFfcfedb),
+                      Color(0xFFa17a2d),
+                      Color(0xFFfcfedb),
+                      Color(0xFFa17a2d),
+                      Color(0xFFfcfedb),
+                    ],
+                    tileMode: TileMode.repeated,
+                    transform: GradientRotation(60),
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  color: ButtonColors.button2FillColor,
-                  padding: EdgeInsets.zero,
-                  child: Center(
-                    child: BlocBuilder<UnlockCubit, UnlockStatus>(
-                      builder: (context, state) {
-                        return Text(
-                          (state.isUnlocking || state.isUnlocked)
-                              ? context.l10n.submitting.toUpperCase()
-                              : context.l10n.submit.toUpperCase(),
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: ButtonColors.button2TextColor,
-                          ),
-                        );
-                      },
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: TextFormField(
+                  controller: _textEditingController,
+                  key: const Key('unlock_password'),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.brown,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: context.l10n.enterPassword.toUpperCase(),
+                    hintStyle: const TextStyle(
+                      color: Colors.brown,
+                      fontSize: 20,
                     ),
+                    fillColor: Colors.white,
+                    constraints: const BoxConstraints(
+                      maxWidth: 500,
+                      minWidth: 300,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
                   ),
                 ),
+              ),
+              const Gap(16),
+              BlocBuilder<UnlockCubit, UnlockStatus>(
+                builder: (context, state) {
+                  if (state.isUnlocking) {
+                    return WeddingButton(
+                      onPressed: null,
+                      text: context.l10n.submitting.toUpperCase(),
+                    );
+                  }
+                  return WeddingButton(
+                    onPressed: () => context
+                        .read<UnlockCubit>()
+                        .unlock(_textEditingController.text),
+                    text: context.l10n.submit.toUpperCase(),
+                  );
+                },
               ),
             ],
           ),

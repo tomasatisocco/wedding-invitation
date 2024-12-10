@@ -18,6 +18,6 @@ void main() {
   testWidgets('Finds wedding buttons', (tester) async {
     await tester.pumpApp(const InfoPage());
 
-    expect(find.byType(WeddingButton), findsNWidgets(2));
+    expect(find.byType(OptionButton), findsNWidgets(2));
   });
 }

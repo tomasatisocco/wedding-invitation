@@ -10,66 +10,74 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        const Gap(32),
-        WeddingButton(
-          title: context.l10n.scheduleReminder,
-          url: 'https://calendar.app.google/geQtKQGj3BLEt11KA',
-          height: 48,
-          width: 220,
-        ),
-        const Gap(64),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: Image.asset('assets/images/wedding_rings.png', width: 600),
-        ),
-        const Gap(32),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '15 Mar',
-              style: TextStyle(
-                fontSize: 32,
-                color: ButtonColors.button1TextColor,
-              ),
+        Positioned(
+          left: -120,
+          bottom: 0,
+          child: Transform.rotate(
+            angle: 0.15,
+            child: Image.asset(
+              'assets/images/tree.png',
+              height: 380,
             ),
-            Gap(16),
-            SizedBox(
-              height: 40,
-              child: VerticalDivider(
-                color: ButtonColors.button1TextColor,
-                thickness: 1,
-              ),
-            ),
-            Gap(16),
-            Text(
-              '7:00 PM',
-              style: TextStyle(
-                fontSize: 32,
-                color: ButtonColors.button1TextColor,
-              ),
-            ),
-          ],
-        ),
-        const Gap(32),
-        const AutoSizeText(
-          'Bodega Robinson, Concordia',
-          maxLines: 1,
-          style: TextStyle(
-            fontSize: 28,
-            color: ButtonColors.button1TextColor,
           ),
         ),
-        const Gap(32),
-        WeddingButton(
-          title: context.l10n.seeMap,
-          url: 'https://maps.app.goo.gl/WLPnUwETkKjRZ3o8A',
-          height: 48,
-          width: 220,
+        Column(
+          children: [
+            const Gap(32),
+            WeddingButton(
+              text: context.l10n.scheduleReminder,
+              url: 'https://calendar.app.google/geQtKQGj3BLEt11KA',
+              maxWidth: 220,
+            ),
+            const Gap(64),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '15 Mar',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: ButtonColors.button1TextColor,
+                  ),
+                ),
+                Gap(16),
+                SizedBox(
+                  height: 40,
+                  child: VerticalDivider(
+                    color: ButtonColors.button1FillColor,
+                    thickness: 2,
+                  ),
+                ),
+                Gap(16),
+                Text(
+                  '7:00 PM',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: ButtonColors.button1TextColor,
+                  ),
+                ),
+              ],
+            ),
+            const Gap(64),
+            const AutoSizeText(
+              'Bodega Robinson, Concordia',
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 28,
+                color: ButtonColors.button1TextColor,
+              ),
+            ),
+            const Gap(32),
+            WeddingButton(
+              text: context.l10n.seeMap,
+              url: 'https://maps.app.goo.gl/WLPnUwETkKjRZ3o8A',
+              maxWidth: 220,
+            ),
+            const Gap(16),
+          ],
         ),
-        const Gap(16),
       ],
     );
   }

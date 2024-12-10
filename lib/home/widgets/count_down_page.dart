@@ -13,27 +13,6 @@ class CountDownPage extends StatelessWidget {
     return Column(
       children: [
         const Gap(32),
-        const Text(
-          'TOMI & EMI',
-          style: TextStyle(
-            fontSize: 40,
-            color: ButtonColors.button1TextColor,
-          ),
-        ),
-        const Gap(64),
-        SizedBox(
-          width: 300,
-          child: Text(
-            context.l10n.ourWedding.toUpperCase(),
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 40,
-              color: ButtonColors.button1TextColor,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-        const Gap(32),
         SizedBox(
           width: 400,
           child: Text(
@@ -46,6 +25,19 @@ class CountDownPage extends StatelessWidget {
           ),
         ),
         const Gap(64),
+        const Text(
+          'TOMI & EMI',
+          style: TextStyle(
+            fontSize: 40,
+            color: ButtonColors.button1TextColor,
+          ),
+        ),
+        const Gap(32),
+        Image.asset(
+          'assets/images/divider.png',
+          fit: BoxFit.fitWidth,
+        ),
+        const Gap(32),
         AutoSizeText(
           context.l10n.almostThere,
           maxLines: 1,
@@ -133,18 +125,36 @@ class TimeIndicator extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 90,
-          width: 90,
+          padding: const EdgeInsets.all(3),
           decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFa17a2d),
+                Color(0xFFf5e687),
+                Color(0xFFa17a2d),
+                Color(0xFFf5e687),
+              ],
+              tileMode: TileMode.repeated,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
             shape: BoxShape.circle,
-            color: ButtonColors.button2FillColor,
           ),
-          child: Center(
-            child: Text(
-              time.toString(),
-              style: const TextStyle(
-                fontSize: 24,
-                color: ButtonColors.button2TextColor,
+          child: Container(
+            height: 70,
+            width: 70,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: ButtonColors.button2FillColor,
+              border: Border.all(color: Colors.white, width: 2),
+            ),
+            child: Center(
+              child: Text(
+                time.toString(),
+                style: const TextStyle(
+                  fontSize: 24,
+                  color: ButtonColors.button2TextColor,
+                ),
               ),
             ),
           ),

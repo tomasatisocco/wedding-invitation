@@ -29,21 +29,20 @@ class DressCodePage extends StatelessWidget {
             color: ButtonColors.button1TextColor,
           ),
         ),
-        const Gap(32),
-        const DressCodeExamples(),
-        const Gap(32),
+        const Gap(16),
         AutoSizeText(
           context.l10n.whiteReserved,
           maxLines: 1,
           style: const TextStyle(
-            fontSize: 28,
+            fontSize: 24,
             color: ButtonColors.button1TextColor,
           ),
         ),
         const Gap(32),
         WeddingButton(
-          title: context.l10n.seeMore,
+          text: context.l10n.seeMore,
           url: 'https://pin.it/MtkEDXSyB',
+          maxWidth: 220,
         ),
       ],
     );

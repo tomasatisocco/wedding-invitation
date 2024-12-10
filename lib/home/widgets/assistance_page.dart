@@ -155,8 +155,8 @@ class AssistanceButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: isActive
-            ? ButtonColors.button2FillColor
-            : ButtonColors.button1FillColor,
+            ? const Color(0xffb9964d)
+            : const Color(0xffb9964d).withOpacity(0.5),
       ),
       child: Text(
         text,
@@ -181,7 +181,7 @@ class ConfirmButton extends StatelessWidget {
           ? null
           : () => context.read<AssistanceCubit>().confirmInvitation(),
       style: ElevatedButton.styleFrom(
-        backgroundColor: ButtonColors.button2FillColor,
+        backgroundColor: const Color(0xffb9964d),
       ),
       child: Builder(
         builder: (context) {

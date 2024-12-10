@@ -11,45 +11,69 @@ class GiftPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        const Gap(64),
-        Stack(
-          alignment: Alignment.center,
+        Positioned(
+          bottom: 0,
+          right: -150,
+          child: Transform.rotate(
+            angle: -0.5,
+            child: Image.asset('assets/images/tree.png', width: 420),
+          ),
+        ),
+        Column(
           children: [
-            Image.asset('assets/images/gift.png', width: 320),
-            Column(
+            const Gap(32),
+            Stack(
+              alignment: Alignment.center,
               children: [
-                AutoSizeText(
-                  maxLines: 1,
-                  context.l10n.gifts.toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 40,
-                    color: ButtonColors.button1TextColor,
-                  ),
-                ),
-                const Gap(32),
-                SizedBox(
-                  width: 480,
-                  child: AutoSizeText(
-                    context.l10n.giftsDisclaimer,
-                    maxLines: 7,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      color: ButtonColors.button1TextColor,
+                Column(
+                  children: [
+                    AutoSizeText(
+                      maxLines: 1,
+                      context.l10n.gifts.toUpperCase(),
+                      style: const TextStyle(
+                        fontSize: 40,
+                        color: ButtonColors.button1TextColor,
+                      ),
                     ),
-                  ),
+                    const Gap(32),
+                    SizedBox(
+                      width: 480,
+                      child: AutoSizeText(
+                        context.l10n.giftsThanks,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 32,
+                          color: ButtonColors.button1TextColor,
+                        ),
+                      ),
+                    ),
+                    const Gap(32),
+                    SizedBox(
+                      width: 480,
+                      child: AutoSizeText(
+                        context.l10n.giftsDisclaimer,
+                        maxLines: 7,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          color: ButtonColors.button1TextColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
+            const Gap(64),
+            WeddingButton(
+              text: context.l10n.bankInformation,
+              onPressed: () => showBankInformation(context),
+              maxWidth: 220,
+            ),
           ],
-        ),
-        const Gap(64),
-        WeddingButton(
-          title: context.l10n.bankInformation,
-          url: '',
-          onPressed: () => showBankInformation(context),
         ),
       ],
     );

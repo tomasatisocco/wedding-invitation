@@ -29,23 +29,23 @@ void main() {
     UrlLauncherPlatform.instance = _setupMockUrlLauncher();
   });
 
-  testWidgets('WeddingButton renders correctly', (tester) async {
+  testWidgets('OptionButton renders correctly', (tester) async {
     await tester.pumpApp(
-      WeddingButton(
+      OptionButton(
         onPressed: () {},
         title: 'Test Button',
         url: 'https://example.com',
       ),
     );
 
-    expect(find.byType(WeddingButton), findsOneWidget);
+    expect(find.byType(OptionButton), findsOneWidget);
     expect(find.text('Test Button'), findsOneWidget);
   });
 
-  testWidgets('WeddingButton calls onPressed when tapped', (tester) async {
+  testWidgets('OptionButton calls onPressed when tapped', (tester) async {
     var wasPressed = false;
     await tester.pumpApp(
-      WeddingButton(
+      OptionButton(
         onPressed: () {
           wasPressed = true;
         },
@@ -54,22 +54,22 @@ void main() {
       ),
     );
 
-    await tester.tap(find.byType(WeddingButton));
+    await tester.tap(find.byType(OptionButton));
     expect(wasPressed, true);
   });
 
-  testWidgets('WeddingButton opens url when tapped', (tester) async {
+  testWidgets('OptionButton opens url when tapped', (tester) async {
     final mockLauncher = _setupMockUrlLauncher();
     UrlLauncherPlatform.instance = mockLauncher;
 
     await tester.pumpApp(
-      const WeddingButton(
+      const OptionButton(
         title: 'Test Button',
         url: 'https://example.com',
       ),
     );
 
-    await tester.tap(find.byType(WeddingButton));
+    await tester.tap(find.byType(OptionButton));
     await tester.pumpAndSettle();
     verify(() => mockLauncher.canLaunch('https://example.com')).called(1);
     verify(() => mockLauncher.launchUrl('https://example.com', any()))

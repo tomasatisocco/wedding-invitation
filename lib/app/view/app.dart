@@ -21,7 +21,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
         useMaterial3: true,
-        textTheme: GoogleFonts.prataTextTheme(textTheme),
+        textTheme: GoogleFonts.playfairTextTheme(textTheme),
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
