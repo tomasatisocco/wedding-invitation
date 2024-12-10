@@ -19,7 +19,7 @@ void main() {
     testWidgets('DressCodePage renders first dress code image', (tester) async {
       await tester.pumpApp(
         const SingleChildScrollView(
-          child: DressCodePage(),
+          child: DressCodeExamples(),
         ),
       );
 
@@ -29,11 +29,11 @@ void main() {
       );
     });
 
-    testWidgets('DressCodePage change dress information successfully',
+    testWidgets('DressCodeExamples change dress information successfully',
         (tester) async {
       await tester.pumpApp(
         const SingleChildScrollView(
-          child: DressCodePage(),
+          child: DressCodeExamples(),
         ),
       );
 
@@ -46,11 +46,11 @@ void main() {
       );
     });
 
-    testWidgets('DressCodePage change back dress information successfully',
+    testWidgets('DressCodeExamples change back dress information successfully',
         (tester) async {
       await tester.pumpApp(
         const SingleChildScrollView(
-          child: DressCodePage(),
+          child: DressCodeExamples(),
         ),
       );
 

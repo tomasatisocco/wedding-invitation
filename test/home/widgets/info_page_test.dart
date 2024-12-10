@@ -10,7 +10,7 @@ void main() {
     await tester.pumpApp(const InfoPage());
 
     expect(
-      find.image(const AssetImage('assets/images/wedding_rings.png')),
+      find.image(const AssetImage('assets/images/tree.png')),
       findsOneWidget,
     );
   });
@@ -18,6 +18,6 @@ void main() {
   testWidgets('Finds wedding buttons', (tester) async {
     await tester.pumpApp(const InfoPage());
 
-    expect(find.byType(OptionButton), findsNWidgets(2));
+    expect(find.byType(WeddingButton), findsNWidgets(2));
   });
 }

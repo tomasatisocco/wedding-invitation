@@ -197,7 +197,6 @@ class _VideoOverlayState extends State<VideoOverlay>
                 builder: (context, state) {
                   if (state.isUnlocking) {
                     return WeddingButton(
-                      onPressed: null,
                       text: context.l10n.submitting.toUpperCase(),
                     );
                   }
