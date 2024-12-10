@@ -80,12 +80,12 @@ class _HomeWidget extends StatelessWidget {
         controller: scrollController,
         child: const Column(
           children: [
-            ForeignGuidePage(),
             UnlockPage(),
             CountDownPage(),
             InfoPage(),
             DressCodePage(),
             PicturesPage(),
+            ForeignGuidePage(),
             GiftPage(),
             AssistancePage(),
           ],
