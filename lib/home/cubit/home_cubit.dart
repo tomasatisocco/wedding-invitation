@@ -4,8 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:home_repository/home_repository.dart';
+import 'package:media_kit/media_kit.dart';
+import 'package:media_kit_video/media_kit_video.dart';
 import 'package:retry/retry.dart';
-import 'package:video_player/video_player.dart';
 
 part 'home_state.dart';
 
@@ -23,7 +24,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   static const animationStepDuration = Duration(milliseconds: 80);
 
-  Future<void> initVideoController([VideoPlayerController? controller]) async {
+  Future<void> initVideoController([VideoController? controller]) async {
     try {
       emit(const HomeState());
       await retry<void>(
@@ -31,16 +32,16 @@ class HomeCubit extends Cubit<HomeState> {
         () async {
           await _homeRepository.initFirebase();
           final invitation = await _homeRepository.getInvitation(_invitationId);
-          final videoPlayerController = controller ??
-              VideoPlayerController.networkUrl(
-                Uri.parse(
-                  'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-4ee7d.firebasestorage.app/o/Videoleap_2023_10_01_11_14_08_462.mp4?alt=media&token=5308800c-286a-41ec-bc69-7496e157c705',
-                ),
-              );
-          await videoPlayerController.initialize();
-          await videoPlayerController.setVolume(0);
-          await videoPlayerController.setLooping(true);
-          await videoPlayerController.play();
+          final videoPlayerController = controller ?? VideoController(Player());
+          final player = videoPlayerController.player;
+          await player.open(
+            Media(
+              'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-4ee7d.firebasestorage.app/o/Videoleap_2023_10_01_11_14_08_462.mp4?alt=media&token=5308800c-286a-41ec-bc69-7496e157c705',
+            ),
+          );
+          await player.setPlaylistMode(PlaylistMode.loop);
+          await player.setVolume(0);
+          await player.play();
           emit(
             HomeState(
               videoController: videoPlayerController,
@@ -56,12 +57,13 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  ScrollController createScrollController(VideoPlayerController controller) {
+  ScrollController createScrollController(VideoController controller) {
     final scrollController = ScrollController();
     scrollController.addListener(() {
       const maxExtent = 1000;
       final scrolled = scrollController.offset / maxExtent;
-      controller.setVolume(1 - scrolled);
+      final volume = 1 - scrolled;
+      controller.player.setVolume(volume < 0 ? 0 : volume);
     });
     return scrollController;
   }

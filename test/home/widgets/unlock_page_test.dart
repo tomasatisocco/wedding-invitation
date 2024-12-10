@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:home_repository/home_repository.dart';
+import 'package:media_kit/media_kit.dart';
+import 'package:media_kit_video/media_kit_video.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:unlock_repository/unlock_repository.dart';
-import 'package:video_player/video_player.dart';
+
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
 import 'package:wedding_invitation/home/widgets/unlock_page.dart';
@@ -13,7 +15,9 @@ import '../../helpers/pump_app.dart';
 
 class MockHomeRepository extends Mock implements HomeRepository {}
 
-class MockVideoPlayerController extends Mock implements VideoPlayerController {}
+class MockVideoPlayerController extends Mock implements VideoController {}
+
+class MockPlayer extends Mock implements Player {}
 
 class MockUnlockRepository extends Mock implements UnlockRepository {}
 
@@ -23,11 +27,15 @@ void main() {
   late MockUnlockRepository unlockRepository;
   late MockHomeRepository homeRepository;
   late MockVideoPlayerController videoPlayerController;
+  late MockPlayer mockPlayer;
 
   setUpAll(() {
     homeRepository = MockHomeRepository();
     unlockRepository = MockUnlockRepository();
     videoPlayerController = MockVideoPlayerController();
+    mockPlayer = MockPlayer();
+
+    registerFallbackValue(Media(''));
 
     when(() => homeRepository.getInvitation(_invitationId)).thenAnswer(
       (_) async => const Invitation(),
@@ -39,21 +47,13 @@ void main() {
     when(() => unlockRepository.unlock('WrongPassword')).thenAnswer(
       (_) async => false,
     );
-    when(videoPlayerController.initialize).thenAnswer((_) async {});
-    when(() => videoPlayerController.setLooping(true)).thenAnswer(
+    when(() => videoPlayerController.player).thenAnswer((_) => mockPlayer);
+    when(() => mockPlayer.open(any())).thenAnswer((_) async {});
+    when(() => mockPlayer.setPlaylistMode(PlaylistMode.loop)).thenAnswer(
       (_) async => true,
     );
-    when(() => videoPlayerController.setVolume(0)).thenAnswer(
-      (_) async => true,
-    );
-    when(videoPlayerController.play).thenAnswer((_) async {});
-    when(() => videoPlayerController.value).thenAnswer(
-      (_) => const VideoPlayerValue(
-        isInitialized: true,
-        duration: Duration(seconds: 10),
-        size: Size(100, 100),
-      ),
-    );
+    when(() => mockPlayer.setVolume(0)).thenAnswer((_) async => true);
+    when(mockPlayer.play).thenAnswer((_) async {});
   });
   testWidgets('UnlockPage displays initial widgets', (tester) async {
     final homeCubit = HomeCubit(

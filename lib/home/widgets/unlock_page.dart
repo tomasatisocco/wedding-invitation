@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:video_player/video_player.dart';
+import 'package:media_kit_video/media_kit_video.dart';
 import 'package:wedding_invitation/home/cubit/home_cubit.dart';
 import 'package:wedding_invitation/home/cubit/unlock_cubit.dart';
 import 'package:wedding_invitation/home/widgets/scroll_down_indicator.dart';
@@ -16,11 +16,13 @@ class UnlockPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.read<HomeCubit>().state;
     final controller = state.videoController;
-    final height = controller?.value.size.height ?? 0;
-    final width = controller?.value.size.width ?? 0;
+    final screenHeight = MediaQuery.sizeOf(context).height;
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final height = controller?.player.state.height ?? 2160;
+    final width = controller?.player.state.width ?? 3840;
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height,
-      width: MediaQuery.sizeOf(context).width,
+      height: screenHeight,
+      width: screenWidth,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -28,11 +30,11 @@ class UnlockPage extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.cover,
               child: SizedBox(
+                height: height.toDouble(),
+                width: width.toDouble(),
                 key: const Key('video_player_box'),
-                width: width,
-                height: height,
                 child: controller != null
-                    ? VideoPlayer(controller)
+                    ? Video(controller: controller)
                     : const SizedBox(),
               ),
             ),
@@ -84,7 +86,8 @@ class _VideoOverlayState extends State<VideoOverlay>
             .read<HomeCubit>()
             .state
             .videoController
-            ?.setVolume(_animationController.value);
+            ?.player
+            .setVolume(_animationController.value);
       },
     );
   }
@@ -169,6 +172,8 @@ class _VideoOverlayState extends State<VideoOverlay>
                   controller: _textEditingController,
                   key: const Key('unlock_password'),
                   textAlign: TextAlign.center,
+                  onFieldSubmitted: (pass) =>
+                      context.read<UnlockCubit>().unlock(pass),
                   style: const TextStyle(
                     fontSize: 20,
                     color: Colors.brown,

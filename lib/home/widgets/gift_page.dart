@@ -23,7 +23,7 @@ class GiftPage extends StatelessWidget {
         ),
         Column(
           children: [
-            const Gap(32),
+            const Gap(16),
             Stack(
               alignment: Alignment.center,
               children: [

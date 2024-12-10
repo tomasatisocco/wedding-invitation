@@ -15,7 +15,7 @@ class HomeState extends Equatable {
   });
 
   final HomeStatus status;
-  final VideoPlayerController? videoController;
+  final VideoController? videoController;
   final ScrollController? scrollController;
   final Invitation? invitation;
 

@@ -23,13 +23,15 @@ dependencies:
   home_repository:
     path: packages/home_repository
   intl: ^0.19.0
+  media_kit: ^1.1.11
+  media_kit_libs_video: ^1.0.5
+  media_kit_video: ^1.2.5
   retry: ^3.1.2
   unlock_repository:
     path: packages/unlock_repository
   url_launcher: ^6.3.1
   url_launcher_web: ^2.3.3
   uuid: ^4.5.1
-  video_player: ^2.9.2
 
 dev_dependencies:
   bloc_test: ^9.1.7
