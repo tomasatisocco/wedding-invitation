@@ -67,7 +67,7 @@ class GiftPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Gap(64),
+            const Gap(32),
             WeddingButton(
               text: context.l10n.bankInformation,
               onPressed: () => showBankInformation(context),

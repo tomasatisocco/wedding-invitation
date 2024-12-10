@@ -47,5 +47,6 @@
     "welcome": "Welcome",
     "enterPassword": "Enter password",
     "submitting": "Submitting...",
-    "submit": "Submit"
+    "submit": "Submit",
+    "seeLooks": "See Looks"
 }

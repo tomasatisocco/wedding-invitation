@@ -40,8 +40,8 @@ class DressCodePage extends StatelessWidget {
         ),
         const Gap(32),
         WeddingButton(
-          text: context.l10n.seeMore,
-          url: 'https://pin.it/MtkEDXSyB',
+          text: context.l10n.seeLooks,
+          url: 'https://ar.pinterest.com/tomasyemilia25/dress-code-emi-tomi/',
           maxWidth: 220,
         ),
       ],

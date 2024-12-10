@@ -24,7 +24,7 @@ class CountDownPage extends StatelessWidget {
             ),
           ),
         ),
-        const Gap(64),
+        const Gap(32),
         const Text(
           'TOMI & EMI',
           style: TextStyle(

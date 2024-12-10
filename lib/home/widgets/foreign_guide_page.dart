@@ -65,48 +65,43 @@ class _InformationPageViewState extends State<InformationPageView> {
           maintainAnimation: true,
           maintainState: true,
           visible: _pageController.hasClients && _pageController.page! > 0,
-          child: Column(
-            children: [
-              const Gap(40),
-              GestureDetector(
-                onTap: () {
-                  _pageController.previousPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.linear,
-                  );
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(3),
-                  height: 32,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xFFa17a2d),
-                        Color(0xFFf5e687),
-                        Color(0xFFa17a2d),
-                        Color(0xFFf5e687),
-                      ],
-                      tileMode: TileMode.repeated,
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    padding: const EdgeInsets.all(4),
-                    child: const Icon(
-                      Icons.arrow_back_ios_rounded,
-                      color: Color(0xFFa17a2d),
-                      size: 20,
-                    ),
-                  ),
+          child: GestureDetector(
+            onTap: () {
+              _pageController.previousPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.linear,
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(3),
+              height: 32,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFa17a2d),
+                    Color(0xFFf5e687),
+                    Color(0xFFa17a2d),
+                    Color(0xFFf5e687),
+                  ],
+                  tileMode: TileMode.repeated,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                padding: const EdgeInsets.all(4),
+                child: const Icon(
+                  Icons.arrow_back_ios_rounded,
+                  color: Color(0xFFa17a2d),
+                  size: 20,
                 ),
               ),
-            ],
+            ),
           ),
         ),
         Flexible(
@@ -130,47 +125,42 @@ class _InformationPageViewState extends State<InformationPageView> {
           maintainSize: true,
           maintainAnimation: true,
           maintainState: true,
-          child: Column(
-            children: [
-              const Gap(40),
-              GestureDetector(
-                onTap: () {
-                  _pageController.nextPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.linear,
-                  );
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(3),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xFFa17a2d),
-                        Color(0xFFf5e687),
-                        Color(0xFFa17a2d),
-                        Color(0xFFf5e687),
-                      ],
-                      tileMode: TileMode.repeated,
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    padding: const EdgeInsets.all(4),
-                    child: const Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: Color(0xFFa17a2d),
-                      size: 20,
-                    ),
-                  ),
+          child: GestureDetector(
+            onTap: () {
+              _pageController.nextPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.linear,
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(3),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFa17a2d),
+                    Color(0xFFf5e687),
+                    Color(0xFFa17a2d),
+                    Color(0xFFf5e687),
+                  ],
+                  tileMode: TileMode.repeated,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                padding: const EdgeInsets.all(4),
+                child: const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Color(0xFFa17a2d),
+                  size: 20,
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ],
@@ -194,7 +184,7 @@ class InformationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Gap(64),
+        const Gap(32),
         AutoSizeText(
           info.title,
           maxLines: 1,

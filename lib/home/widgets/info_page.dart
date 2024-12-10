@@ -60,7 +60,7 @@ class InfoPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Gap(64),
+            const Gap(32),
             const AutoSizeText(
               'Bodega Robinson, Concordia',
               maxLines: 1,

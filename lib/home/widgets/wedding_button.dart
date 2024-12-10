@@ -99,8 +99,9 @@ class WeddingButton extends StatelessWidget {
         ),
         onPressed: onPressed ?? launchPage,
         child: Center(
-          child: Text(
+          child: AutoSizeText(
             text,
+            maxLines: 1,
             style: const TextStyle(
               fontSize: 20,
               color: Colors.brown,
