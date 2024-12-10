@@ -61,6 +61,43 @@ class AdminCubit extends Cubit<AdminState> {
     } catch (_) {}
   }
 
+  void updateInvitation(Invitation invitation) {
+    try {
+      _originalList = _originalList?.map((e) {
+        if (e.id == invitation.id) return invitation;
+        return e;
+      }).toList();
+      emit(
+        AdminState(
+          status: AdminStatus.loaded,
+          selectedInvitation: state.selectedInvitation,
+          invitations: _originalList,
+        ),
+      );
+    } catch (_) {}
+  }
+
+  void selectHome() {
+    emit(
+      AdminState(
+        status: AdminStatus.loaded,
+        invitations: _originalList,
+      ),
+    );
+  }
+
+  void selectByGuest(Guest guest) {
+    final invitation =
+        _originalList?.firstWhere((e) => e.guests?.contains(guest) ?? false);
+    emit(
+      AdminState(
+        status: AdminStatus.loaded,
+        selectedInvitation: invitation,
+        invitations: state.invitations,
+      ),
+    );
+  }
+
   final AdminRepository _adminRepository;
   List<Invitation>? _originalList;
 }

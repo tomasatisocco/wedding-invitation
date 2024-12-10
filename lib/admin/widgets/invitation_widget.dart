@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/v4.dart';
+import 'package:wedding_invitation/admin/cubit/admin_cubit.dart';
 import 'package:wedding_invitation/admin/cubit/invitation_cubit.dart';
 import 'package:wedding_invitation/app_colors.dart';
 import 'package:wedding_invitation/l10n/l10n.dart';
@@ -20,6 +21,7 @@ class InvitationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
+      key: Key(invitation.id ?? ''),
       create: (context) => InvitationCubit(
         adminRepository: context.read<AdminRepository>(),
         invitation: invitation,
@@ -62,6 +64,9 @@ class _InvitationWidgetViewState extends State<InvitationWidgetView> {
           noteController.value = noteController.value.copyWith(text: note);
           setState(() {});
         });
+        if (state.isLoaded) {
+          context.read<AdminCubit>().updateInvitation(state.actualInvitation);
+        }
       },
       builder: (context, state) {
         final invitation = state.actualInvitation;
