@@ -146,5 +146,95 @@ void main() {
         ),
       ],
     );
+
+    blocTest<AdminCubit, AdminState>(
+      'emits AdminState in update invitation',
+      build: () => adminCubit,
+      setUp: () {
+        when(() => mockAdminRepository.getInvitations()).thenAnswer(
+          (_) async => [mockInvitation1],
+        );
+      },
+      act: (cubit) async {
+        await cubit.getInvitations();
+        cubit.updateInvitation(mockInvitation1.copyWith(note: 'TestNote'));
+      },
+      expect: () => [
+        const AdminState(),
+        AdminState(
+          status: AdminStatus.loaded,
+          invitations: [mockInvitation1],
+        ),
+        AdminState(
+          status: AdminStatus.loaded,
+          invitations: [mockInvitation1.copyWith(note: 'TestNote')],
+        ),
+      ],
+    );
+
+    blocTest<AdminCubit, AdminState>(
+      'emits AdminState in select home',
+      build: () => adminCubit,
+      setUp: () {
+        when(() => mockAdminRepository.getInvitations()).thenAnswer(
+          (_) async => [mockInvitation1],
+        );
+      },
+      act: (cubit) async {
+        await cubit.getInvitations();
+        cubit
+          ..selectInvitation(mockInvitation1)
+          ..selectHome();
+      },
+      expect: () => [
+        const AdminState(),
+        AdminState(
+          status: AdminStatus.loaded,
+          invitations: [mockInvitation1],
+        ),
+        AdminState(
+          status: AdminStatus.loaded,
+          invitations: [mockInvitation1],
+          selectedInvitation: mockInvitation1,
+        ),
+        AdminState(
+          status: AdminStatus.loaded,
+          invitations: [mockInvitation1],
+        ),
+      ],
+    );
+
+    blocTest<AdminCubit, AdminState>(
+      'emits AdminState in select by guest',
+      build: () => adminCubit,
+      setUp: () {
+        when(() => mockAdminRepository.getInvitations()).thenAnswer(
+          (_) async => [
+            mockInvitation1.copyWith(guests: [const Guest(id: '1')]),
+          ],
+        );
+      },
+      act: (cubit) async {
+        await cubit.getInvitations();
+        cubit.selectByGuest(const Guest(id: '1'));
+      },
+      expect: () => [
+        const AdminState(),
+        AdminState(
+          status: AdminStatus.loaded,
+          invitations: [
+            mockInvitation1.copyWith(guests: [const Guest(id: '1')]),
+          ],
+        ),
+        AdminState(
+          status: AdminStatus.loaded,
+          invitations: [
+            mockInvitation1.copyWith(guests: [const Guest(id: '1')]),
+          ],
+          selectedInvitation:
+              mockInvitation1.copyWith(guests: [const Guest(id: '1')]),
+        ),
+      ],
+    );
   });
 }

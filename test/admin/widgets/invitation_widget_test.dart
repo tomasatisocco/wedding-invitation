@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:wedding_invitation/admin/cubit/admin_cubit.dart';
 import 'package:wedding_invitation/admin/widgets/invitation_widget.dart';
 
 import '../../helpers/helpers.dart';
@@ -10,11 +11,27 @@ import '../../mocks.dart';
 
 void main() {
   late AdminRepository mockAdminRepository;
+  late AdminCubit adminCubit;
   late Invitation mockInvitation;
+
+  Future<void> buildWidget(WidgetTester tester, Widget child) async {
+    await tester.pumpApp(
+      RepositoryProvider(
+        create: (context) => mockAdminRepository,
+        child: BlocProvider(
+          create: (_) => adminCubit,
+          child: Material(
+            child: child,
+          ),
+        ),
+      ),
+    );
+  }
 
   setUpAll(() {
     registerFallbackValue(const Invitation(id: '1'));
     mockAdminRepository = MockAdminRepository();
+    adminCubit = MockAdminCubit();
     mockInvitation = const Invitation(
       id: '1',
       guests: [
@@ -30,14 +47,8 @@ void main() {
   testWidgets(
     'InvitationWidget renders correctly',
     (tester) async {
-      await tester.pumpApp(
-        RepositoryProvider(
-          create: (context) => mockAdminRepository,
-          child: Material(
-            child: InvitationWidget(invitation: mockInvitation),
-          ),
-        ),
-      );
+      await buildWidget(tester, InvitationWidget(invitation: mockInvitation));
+
       expect(find.text('Guest 1'), findsOneWidget);
       expect(find.text('Guest 2'), findsOneWidget);
     },
@@ -46,17 +57,9 @@ void main() {
   testWidgets(
     'InvitationWidget Add note correctly',
     (tester) async {
-      await tester.pumpApp(
-        RepositoryProvider(
-          create: (context) => mockAdminRepository,
-          child: Material(
-            child: InvitationWidget(invitation: mockInvitation),
-          ),
-        ),
-      );
+      await buildWidget(tester, InvitationWidget(invitation: mockInvitation));
 
       await tester.enterText(find.byType(TextField).first, 'Test note');
-
       await tester.pumpAndSettle();
 
       expect(find.text('Test note'), findsOneWidget);
@@ -66,14 +69,7 @@ void main() {
   testWidgets(
     'InvitationWidget reset note correctly',
     (tester) async {
-      await tester.pumpApp(
-        RepositoryProvider(
-          create: (context) => mockAdminRepository,
-          child: Material(
-            child: InvitationWidget(invitation: mockInvitation),
-          ),
-        ),
-      );
+      await buildWidget(tester, InvitationWidget(invitation: mockInvitation));
 
       await tester.enterText(find.byType(TextField).first, 'Test note');
       await tester.pumpAndSettle();
@@ -87,16 +83,7 @@ void main() {
   testWidgets(
     'InvitationWidget Save note correctly',
     (tester) async {
-      await tester.pumpApp(
-        RepositoryProvider(
-          create: (context) => mockAdminRepository,
-          child: Material(
-            child: InvitationWidget(
-              invitation: mockInvitation,
-            ),
-          ),
-        ),
-      );
+      await buildWidget(tester, InvitationWidget(invitation: mockInvitation));
 
       await tester.enterText(find.byType(TextField).first, 'Test note');
       await tester.pumpAndSettle();
@@ -110,18 +97,8 @@ void main() {
   testWidgets(
     'InvitationWidget add guest correctly',
     (tester) async {
-      await tester.pumpApp(
-        RepositoryProvider(
-          create: (context) => mockAdminRepository,
-          child: Material(
-            child: SingleChildScrollView(
-              child: InvitationWidget(
-                invitation: mockInvitation,
-              ),
-            ),
-          ),
-        ),
-      );
+      await buildWidget(tester, InvitationWidget(invitation: mockInvitation));
+
       await tester.dragUntilVisible(
         find.byType(GuestWidget).first,
         find.byType(SingleChildScrollView),
@@ -138,16 +115,7 @@ void main() {
   testWidgets(
     'InvitationWidget delete guest correctly',
     (tester) async {
-      await tester.pumpApp(
-        RepositoryProvider(
-          create: (context) => mockAdminRepository,
-          child: Material(
-            child: InvitationWidget(
-              invitation: mockInvitation,
-            ),
-          ),
-        ),
-      );
+      await buildWidget(tester, InvitationWidget(invitation: mockInvitation));
 
       await tester.dragUntilVisible(
         find.byType(GuestWidget).first,
@@ -164,18 +132,8 @@ void main() {
   testWidgets(
     'InvitationWidget update guest name correctly',
     (tester) async {
-      await tester.pumpApp(
-        RepositoryProvider(
-          create: (context) => mockAdminRepository,
-          child: Material(
-            child: SingleChildScrollView(
-              child: InvitationWidget(
-                invitation: mockInvitation,
-              ),
-            ),
-          ),
-        ),
-      );
+      await buildWidget(tester, InvitationWidget(invitation: mockInvitation));
+
       await tester.dragUntilVisible(
         find.byType(GuestWidget).first,
         find.byType(SingleChildScrollView),
@@ -192,18 +150,8 @@ void main() {
   testWidgets(
     'InvitationWidget confirm guest correctly',
     (tester) async {
-      await tester.pumpApp(
-        RepositoryProvider(
-          create: (context) => mockAdminRepository,
-          child: Material(
-            child: SingleChildScrollView(
-              child: InvitationWidget(
-                invitation: mockInvitation,
-              ),
-            ),
-          ),
-        ),
-      );
+      await buildWidget(tester, InvitationWidget(invitation: mockInvitation));
+
       await tester.dragUntilVisible(
         find.byType(GuestWidget).first,
         find.byType(SingleChildScrollView),

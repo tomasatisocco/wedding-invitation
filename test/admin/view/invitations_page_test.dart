@@ -56,7 +56,7 @@ void main() {
 
     await tester.pump();
 
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('1'), findsNWidgets(2));
   });
 
   testWidgets('Invitations shows error correctly', (tester) async {
@@ -144,8 +144,8 @@ void main() {
 
     await tester.pump();
 
-    await tester.tap(find.text('1'));
+    await tester.tap(find.text('1').first);
     await tester.pumpAndSettle();
-    expect(find.text('Notes'), findsOneWidget);
+    expect(find.text('Notes'), findsNWidgets(1));
   });
 }
