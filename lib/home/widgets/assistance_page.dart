@@ -156,7 +156,7 @@ class AssistanceButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: isActive
             ? const Color(0xffb9964d)
-            : const Color(0xffb9964d).withOpacity(0.5),
+            : const Color(0xffb9964d).withValues(alpha: 0.5),
       ),
       child: Text(
         text,
