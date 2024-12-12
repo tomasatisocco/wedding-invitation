@@ -36,7 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
           final player = videoPlayerController.player;
           await player.open(
             Media(
-              'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-4ee7d.firebasestorage.app/o/Videoleap_2023_10_01_11_14_08_462.mp4?alt=media&token=5308800c-286a-41ec-bc69-7496e157c705',
+              'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-4ee7d.firebasestorage.app/o/wedding_video_1080p_smaller.mp4?alt=media&token=5308800c-286a-41ec-bc69-7496e157c705',
             ),
           );
           await player.setPlaylistMode(PlaylistMode.loop);
