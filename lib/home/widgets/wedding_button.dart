@@ -6,8 +6,8 @@ class OptionButton extends StatelessWidget {
   const OptionButton({
     required this.title,
     required this.url,
-    this.height = 64,
-    this.width = 420,
+    this.height = 48,
+    this.width = 380,
     this.onPressed,
     super.key,
   });
@@ -35,7 +35,7 @@ class OptionButton extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: Colors.white,
-            fontSize: 24,
+            fontSize: 16,
           ),
         ),
       ),
@@ -71,9 +71,9 @@ class WeddingButton extends StatelessWidget {
       constraints: BoxConstraints(
         maxWidth: maxWidth ?? 500,
         minWidth: maxWidth != null ? 0 : 300,
-        maxHeight: 56,
+        maxHeight: 48,
       ),
-      padding: const EdgeInsets.all(6),
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
@@ -103,7 +103,7 @@ class WeddingButton extends StatelessWidget {
             text,
             maxLines: 1,
             style: const TextStyle(
-              fontSize: 20,
+              fontSize: 12,
               color: Colors.brown,
             ),
           ),

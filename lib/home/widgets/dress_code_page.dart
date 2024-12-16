@@ -12,33 +12,32 @@ class DressCodePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Gap(64),
         AutoSizeText(
           context.l10n.dressCode.toUpperCase(),
-          maxLines: 1,
-          style: const TextStyle(
-            fontSize: 40,
-            color: ButtonColors.button1TextColor,
-          ),
-        ),
-        const Gap(32),
-        Text(
-          context.l10n.formal.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 32,
-            color: ButtonColors.button1TextColor,
-          ),
-        ),
-        const Gap(16),
-        AutoSizeText(
-          context.l10n.whiteReserved,
           maxLines: 1,
           style: const TextStyle(
             fontSize: 24,
             color: ButtonColors.button1TextColor,
           ),
         ),
-        const Gap(32),
+        const Gap(8),
+        Text(
+          context.l10n.formal.toUpperCase(),
+          style: const TextStyle(
+            fontSize: 24,
+            color: ButtonColors.button1TextColor,
+          ),
+        ),
+        const Gap(20),
+        AutoSizeText(
+          context.l10n.whiteReserved,
+          maxLines: 1,
+          style: const TextStyle(
+            fontSize: 16,
+            color: ButtonColors.button1TextColor,
+          ),
+        ),
+        const Gap(40),
         WeddingButton(
           text: context.l10n.seeLooks,
           url: 'https://ar.pinterest.com/tomasyemilia25/dress-code-emi-tomi/',

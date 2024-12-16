@@ -48,5 +48,7 @@
     "enterPassword": "Enter password",
     "submitting": "Submitting...",
     "submit": "Submit",
-    "seeLooks": "See Looks"
+    "seeLooks": "See Looks",
+    "confirmAssistance": "Confirm Assistance",
+    "beforeDate": "Before 02/01/2025"
 }

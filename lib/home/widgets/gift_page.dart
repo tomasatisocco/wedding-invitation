@@ -14,66 +14,65 @@ class GiftPage extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          bottom: 0,
-          right: -150,
+          top: 0,
+          right: -80,
           child: Transform.rotate(
             angle: -0.5,
-            child: Image.asset('assets/images/tree.png', width: 420),
+            child: Image.asset(
+              'assets/images/tree.png',
+              height: 340,
+            ),
           ),
         ),
-        Column(
-          children: [
-            const Gap(16),
-            Stack(
-              alignment: Alignment.center,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Center(
+            child: Column(
               children: [
-                Column(
-                  children: [
-                    AutoSizeText(
-                      maxLines: 1,
-                      context.l10n.gifts.toUpperCase(),
-                      style: const TextStyle(
-                        fontSize: 40,
-                        color: ButtonColors.button1TextColor,
-                      ),
+                const Gap(40),
+                AutoSizeText(
+                  maxLines: 1,
+                  context.l10n.gifts.toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    color: ButtonColors.button1TextColor,
+                  ),
+                ),
+                const Gap(32),
+                SizedBox(
+                  width: 360,
+                  child: AutoSizeText(
+                    context.l10n.giftsThanks,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: ButtonColors.button1TextColor,
                     ),
-                    const Gap(32),
-                    SizedBox(
-                      width: 480,
-                      child: AutoSizeText(
-                        context.l10n.giftsThanks,
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 32,
-                          color: ButtonColors.button1TextColor,
-                        ),
-                      ),
+                  ),
+                ),
+                const Gap(32),
+                SizedBox(
+                  width: 360,
+                  child: AutoSizeText(
+                    context.l10n.giftsDisclaimer,
+                    maxLines: 7,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: ButtonColors.button1TextColor,
                     ),
-                    const Gap(32),
-                    SizedBox(
-                      width: 480,
-                      child: AutoSizeText(
-                        context.l10n.giftsDisclaimer,
-                        maxLines: 7,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          color: ButtonColors.button1TextColor,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
+                ),
+                const Gap(32),
+                WeddingButton(
+                  text: context.l10n.bankInformation,
+                  onPressed: () => showBankInformation(context),
+                  maxWidth: 220,
                 ),
               ],
             ),
-            const Gap(32),
-            WeddingButton(
-              text: context.l10n.bankInformation,
-              onPressed: () => showBankInformation(context),
-              maxWidth: 220,
-            ),
-          ],
+          ),
         ),
       ],
     );

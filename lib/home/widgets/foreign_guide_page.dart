@@ -10,22 +10,36 @@ class ForeignGuidePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
+      alignment: Alignment.center,
       children: [
-        const Gap(64),
-        SizedBox(
-          width: 450,
-          child: AutoSizeText(
-            context.l10n.guideForForeigners,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 32,
-              color: ButtonColors.button1TextColor,
+        Positioned(
+          top: 0,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 140),
+            child: Image.asset(
+              'assets/images/divider_2.png',
             ),
           ),
         ),
-        const InformationPageView(),
+        Column(
+          children: [
+            const Gap(120),
+            SizedBox(
+              width: 450,
+              child: AutoSizeText(
+                context.l10n.guideForForeigners,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 24,
+                  color: ButtonColors.button1TextColor,
+                ),
+              ),
+            ),
+            const InformationPageView(),
+          ],
+        ),
       ],
     );
   }
@@ -39,11 +53,10 @@ class InformationPageView extends StatefulWidget {
 }
 
 class _InformationPageViewState extends State<InformationPageView> {
-  late PageController _pageController;
+  late final PageController _pageController = PageController();
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
     _pageController.addListener(_onPageChanged);
     WidgetsBinding.instance.addPostFrameCallback((_) => _onPageChanged());
   }
@@ -60,55 +73,12 @@ class _InformationPageViewState extends State<InformationPageView> {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Visibility(
-          maintainSize: true,
-          maintainAnimation: true,
-          maintainState: true,
-          visible: _pageController.hasClients && _pageController.page! > 0,
-          child: GestureDetector(
-            onTap: () {
-              _pageController.previousPage(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.linear,
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.all(3),
-              height: 32,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xFFa17a2d),
-                    Color(0xFFf5e687),
-                    Color(0xFFa17a2d),
-                    Color(0xFFf5e687),
-                  ],
-                  tileMode: TileMode.repeated,
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                shape: BoxShape.circle,
-              ),
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                padding: const EdgeInsets.all(4),
-                child: const Icon(
-                  Icons.arrow_back_ios_rounded,
-                  color: Color(0xFFa17a2d),
-                  size: 20,
-                ),
-              ),
-            ),
-          ),
-        ),
+        ChangePageButton(pageController: _pageController),
         Flexible(
           child: ConstrainedBox(
             constraints: const BoxConstraints(
               maxWidth: 450,
-              maxHeight: 520,
+              maxHeight: 280,
             ),
             child: PageView(
               controller: _pageController,
@@ -120,55 +90,92 @@ class _InformationPageViewState extends State<InformationPageView> {
             ),
           ),
         ),
-        Visibility(
-          visible: _pageController.hasClients && _pageController.page! < 2,
-          maintainSize: true,
-          maintainAnimation: true,
-          maintainState: true,
-          child: GestureDetector(
-            onTap: () {
-              _pageController.nextPage(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.linear,
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.all(3),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xFFa17a2d),
-                    Color(0xFFf5e687),
-                    Color(0xFFa17a2d),
-                    Color(0xFFf5e687),
-                  ],
-                  tileMode: TileMode.repeated,
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                shape: BoxShape.circle,
-              ),
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                padding: const EdgeInsets.all(4),
-                child: const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: Color(0xFFa17a2d),
-                  size: 20,
-                ),
-              ),
-            ),
-          ),
-        ),
+        ChangePageButton(pageController: _pageController, isLeft: false),
       ],
     );
   }
 
   void _onPageChanged() {
     setState(() {});
+  }
+}
+
+class ChangePageButton extends StatelessWidget {
+  const ChangePageButton({
+    required this.pageController,
+    this.isLeft = true,
+    super.key,
+  });
+
+  final bool isLeft;
+  final PageController pageController;
+
+  @override
+  Widget build(BuildContext context) {
+    final page = pageController.hasClients ? (pageController.page ?? 0) : 0;
+    final visible = isLeft ? page > 0 : page < 2;
+    return Visibility(
+      visible: pageController.hasClients && visible,
+      maintainSize: true,
+      maintainAnimation: true,
+      maintainState: true,
+      child: Padding(
+        padding: isLeft
+            ? const EdgeInsets.only(left: 16)
+            : const EdgeInsets.only(right: 16),
+        child: Column(
+          children: [
+            const Gap(64),
+            GestureDetector(
+              onTap: () {
+                if (isLeft) {
+                  pageController.previousPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.linear,
+                  );
+                  return;
+                }
+                pageController.nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.linear,
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.all(3),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFFa17a2d),
+                      Color(0xFFf5e687),
+                      Color(0xFFa17a2d),
+                      Color(0xFFf5e687),
+                    ],
+                    tileMode: TileMode.repeated,
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  shape: BoxShape.circle,
+                ),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(4),
+                  child: Icon(
+                    isLeft
+                        ? Icons.arrow_back_ios_rounded
+                        : Icons.arrow_forward_ios_rounded,
+                    color: const Color(0xFFa17a2d),
+                    size: 16,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -184,26 +191,24 @@ class InformationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Gap(32),
+        const Gap(40),
         AutoSizeText(
           info.title,
           maxLines: 1,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 32,
+            fontSize: 16,
             color: ButtonColors.button1TextColor,
           ),
         ),
-        const Gap(32),
         for (int i = 0; i < info.buttonTitles.length; i++)
           Padding(
-            padding: const EdgeInsets.only(top: 32),
+            padding: const EdgeInsets.only(top: 24),
             child: OptionButton(
               title: info.buttonTitles[i],
               url: info.buttonUrls[i],
             ),
           ),
-        const Gap(32),
       ],
     );
   }
@@ -230,7 +235,7 @@ const hospitality = InformationWidgetInfo(
   ],
   buttonUrls: [
     'https://www.mayimhoteltermal.com.ar/home',
-    'https://www.amanzitermal.com.ar',
+    'https://www.booking.com/hotel/ar/amanzi-termal.es-ar.html',
     'https://www.hathorconcordia.com.ar',
   ],
 );

@@ -48,5 +48,7 @@
     "enterPassword": "Ingresar Contraseña",
     "submitting": "Ingresando...",
     "submit": "Ingresar",
-    "seeLooks": "Ver Looks"
+    "seeLooks": "Ver Looks",
+    "confirmAssistance": "Confirmar Asistencia",
+    "beforeDate": "Antes del 01/02/2025"
 }

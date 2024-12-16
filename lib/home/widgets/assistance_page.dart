@@ -32,20 +32,28 @@ class AssistancePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Gap(64),
+        const Gap(40),
+        Image.asset(
+          'assets/images/dancing.png',
+          height: 340,
+        ),
+        const Gap(40),
         Text(
-          context.l10n.attendance.toUpperCase(),
+          context.l10n.confirmAssistance.toUpperCase(),
           style: const TextStyle(
-            fontSize: 40,
+            fontSize: 24,
             color: ButtonColors.button1TextColor,
           ),
         ),
-        const Gap(32),
-        Image.asset(
-          'assets/images/ready.png',
-          height: 340,
+        const Gap(40),
+        Text(
+          context.l10n.beforeDate,
+          style: const TextStyle(
+            fontSize: 16,
+            color: ButtonColors.button1TextColor,
+          ),
         ),
-        const Gap(32),
+        const Gap(40),
         BlocBuilder<AssistanceCubit, AssistanceState>(
           builder: (context, state) {
             final guests = state.invitation.guests ?? [];
@@ -156,7 +164,7 @@ class AssistanceButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: isActive
             ? const Color(0xffb9964d)
-            : const Color(0xffb9964d).withValues(alpha: 0.5),
+            : const Color(0xffb9964d).withOpacity(0.5),
       ),
       child: Text(
         text,

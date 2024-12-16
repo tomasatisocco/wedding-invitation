@@ -118,7 +118,7 @@ class _VideoOverlayState extends State<VideoOverlay>
         key: const Key('unlock_fade_transition'),
         opacity: _opacityAnimation,
         child: Container(
-          color: const Color(0xFF737373).withValues(alpha: 0.6),
+          color: const Color(0xFF737373).withOpacity(0.6),
           padding: const EdgeInsets.symmetric(horizontal: 60),
           child: Column(
             mainAxisSize: MainAxisSize.min,

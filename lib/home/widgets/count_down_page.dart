@@ -10,44 +10,54 @@ class CountDownPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        const Gap(32),
-        SizedBox(
-          width: 400,
-          child: Text(
-            context.l10n.afterAllThisTime,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 20,
-              color: ButtonColors.button1TextColor,
-            ),
+        Positioned(
+          top: 176,
+          child: Image.asset(
+            'assets/images/divider.png',
+            height: 100,
+            width: MediaQuery.sizeOf(context).width,
           ),
         ),
-        const Gap(32),
-        const Text(
-          'TOMI & EMI',
-          style: TextStyle(
-            fontSize: 40,
-            color: ButtonColors.button1TextColor,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Column(
+            children: [
+              const Gap(40),
+              SizedBox(
+                width: 400,
+                child: Text(
+                  context.l10n.afterAllThisTime,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: ButtonColors.button1TextColor,
+                  ),
+                ),
+              ),
+              const Gap(40),
+              const Text(
+                'TOMI & EMI',
+                style: TextStyle(
+                  fontSize: 32,
+                  color: ButtonColors.button1TextColor,
+                ),
+              ),
+              const Gap(120),
+              AutoSizeText(
+                context.l10n.almostThere,
+                maxLines: 1,
+                style: const TextStyle(
+                  fontSize: 24,
+                  color: ButtonColors.button1TextColor,
+                ),
+              ),
+              const Gap(40),
+              const CountdownTimer(),
+            ],
           ),
         ),
-        const Gap(32),
-        Image.asset(
-          'assets/images/divider.png',
-          fit: BoxFit.fitWidth,
-        ),
-        const Gap(32),
-        AutoSizeText(
-          context.l10n.almostThere,
-          maxLines: 1,
-          style: const TextStyle(
-            fontSize: 40,
-            color: ButtonColors.button1TextColor,
-          ),
-        ),
-        const Gap(32),
-        const CountdownTimer(),
       ],
     );
   }
@@ -141,8 +151,8 @@ class TimeIndicator extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           child: Container(
-            height: 70,
-            width: 70,
+            height: 56,
+            width: 56,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: ButtonColors.button2FillColor,
@@ -152,7 +162,7 @@ class TimeIndicator extends StatelessWidget {
               child: Text(
                 time.toString(),
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 16,
                   color: ButtonColors.button2TextColor,
                 ),
               ),
@@ -161,9 +171,9 @@ class TimeIndicator extends StatelessWidget {
         ),
         const Gap(8),
         Text(
-          title,
+          title.toUpperCase(),
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 8,
             color: ButtonColors.button1TextColor,
           ),
         ),

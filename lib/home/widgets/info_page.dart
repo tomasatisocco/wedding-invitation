@@ -13,70 +13,70 @@ class InfoPage extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          left: -120,
-          bottom: 0,
-          child: Transform.rotate(
-            angle: 0.15,
-            child: Image.asset(
-              'assets/images/tree.png',
-              height: 380,
-            ),
+          left: -140,
+          bottom: -60,
+          child: Image.asset(
+            'assets/images/tree.png',
+            height: 340,
           ),
         ),
-        Column(
-          children: [
-            const Gap(32),
-            WeddingButton(
-              text: context.l10n.scheduleReminder,
-              url: 'https://calendar.app.google/geQtKQGj3BLEt11KA',
-              maxWidth: 220,
-            ),
-            const Gap(64),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '15 Mar',
-                  style: TextStyle(
-                    fontSize: 32,
-                    color: ButtonColors.button1TextColor,
-                  ),
-                ),
-                Gap(16),
-                SizedBox(
-                  height: 40,
-                  child: VerticalDivider(
-                    color: ButtonColors.button1FillColor,
-                    thickness: 2,
-                  ),
-                ),
-                Gap(16),
-                Text(
-                  '7:00 PM',
-                  style: TextStyle(
-                    fontSize: 32,
-                    color: ButtonColors.button1TextColor,
-                  ),
-                ),
-              ],
-            ),
-            const Gap(32),
-            const AutoSizeText(
-              'Bodega Robinson, Concordia',
-              maxLines: 1,
-              style: TextStyle(
-                fontSize: 28,
-                color: ButtonColors.button1TextColor,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const Gap(40),
+              WeddingButton(
+                text: context.l10n.scheduleReminder,
+                url: 'https://calendar.app.google/geQtKQGj3BLEt11KA',
+                maxWidth: 220,
               ),
-            ),
-            const Gap(32),
-            WeddingButton(
-              text: context.l10n.seeMap,
-              url: 'https://maps.app.goo.gl/WLPnUwETkKjRZ3o8A',
-              maxWidth: 220,
-            ),
-            const Gap(16),
-          ],
+              const Gap(40),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '15 Mar',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: ButtonColors.button1TextColor,
+                    ),
+                  ),
+                  Gap(16),
+                  SizedBox(
+                    height: 40,
+                    child: VerticalDivider(
+                      color: ButtonColors.button1FillColor,
+                      thickness: 2,
+                    ),
+                  ),
+                  Gap(16),
+                  Text(
+                    '7:00 PM',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: ButtonColors.button1TextColor,
+                    ),
+                  ),
+                ],
+              ),
+              const Gap(12),
+              const AutoSizeText(
+                'Bodega Robinson, Concordia',
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: ButtonColors.button1TextColor,
+                ),
+              ),
+              const Gap(40),
+              WeddingButton(
+                text: context.l10n.seeMap,
+                url: 'https://maps.app.goo.gl/WLPnUwETkKjRZ3o8A',
+                maxWidth: 220,
+              ),
+              const Gap(40),
+            ],
+          ),
         ),
       ],
     );
