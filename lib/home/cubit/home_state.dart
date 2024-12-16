@@ -25,6 +25,7 @@ class HomeState extends Equatable {
 
   String? get invitationNames {
     if (invitation == null) return null;
+    if (invitation?.title != null) return invitation?.title;
     final names = invitation!.guests?.map((e) => e.name).toList().join(' & ');
     return names;
   }

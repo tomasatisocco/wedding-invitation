@@ -40,6 +40,7 @@ class InvitationWidgetView extends StatefulWidget {
 
 class _InvitationWidgetViewState extends State<InvitationWidgetView> {
   late TextEditingController noteController;
+  late TextEditingController titleController;
 
   @override
   void initState() {
@@ -47,6 +48,9 @@ class _InvitationWidgetViewState extends State<InvitationWidgetView> {
     final invitation = context.read<InvitationCubit>().state.actualInvitation;
     noteController = TextEditingController(
       text: invitation.note,
+    );
+    titleController = TextEditingController(
+      text: invitation.title,
     );
   }
 
@@ -88,7 +92,26 @@ class _InvitationWidgetViewState extends State<InvitationWidgetView> {
                 const Gap(16),
                 SizedBox(
                   width: 300,
-                  height: 200,
+                  height: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: TextField(
+                      controller: titleController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Title',
+                      ),
+                      onChanged: (value) {
+                        final newNote = invitation.copyWith(title: value);
+                        cubit.updateInvitation(newNote);
+                      },
+                      maxLines: 5,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  height: 100,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: TextField(

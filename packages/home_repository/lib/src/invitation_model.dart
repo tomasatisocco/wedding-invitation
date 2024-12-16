@@ -95,6 +95,7 @@ class Invitation extends Equatable {
     this.id,
     this.guests,
     this.note,
+    this.title,
   });
 
   /// Factory constructor to parse from a Map
@@ -105,6 +106,7 @@ class Invitation extends Equatable {
           ?.map((invitee) => Guest.fromMap(invitee as Map<String, dynamic>))
           .toList(),
       note: map['note'] as String?,
+      title: map['title'] as String?,
     );
   }
 
@@ -121,12 +123,15 @@ class Invitation extends Equatable {
   /// Optional note
   final String? note;
 
+  final String? title;
+
   /// Convert to a Map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'guests': guests?.map((invitee) => invitee.toMap()).toList(),
       'note': note,
+      'title': title,
     };
   }
 
@@ -137,14 +142,16 @@ class Invitation extends Equatable {
     String? id,
     List<Guest>? guests,
     String? note,
+    String? title,
   }) {
     return Invitation(
       id: id ?? this.id,
       guests: guests ?? this.guests,
       note: note ?? this.note,
+      title: title ?? this.title,
     );
   }
 
   @override
-  List<Object?> get props => [id, guests, note];
+  List<Object?> get props => [id, guests, note, title];
 }
