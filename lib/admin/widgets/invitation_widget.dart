@@ -426,6 +426,20 @@ class ShareWidget extends StatelessWidget {
 
   String get link =>
       'https://wedding-invitation-4ee7d.web.app/${invitation.id}';
-  String get invitationText =>
-      'Hola ${invitation.invitedNames}, Queremos invitarte a nuestra boda. $link';
+  String get invitationText => '''
+¡Hola, ${invitation.invitedNames}! ✨
+¡Llegó la invitación oficial a nuestra boda! 🎉 Estamos muy felices de compartir con ustedes este momento tan especial.
+
+Aquí les dejamos el enlace: $link.
+Para acceder, necesitarán esta contraseña: 15032025.
+
+Recomendamos ver la invitación desde su celular para una mejor experiencia. 📱
+
+Por favor, confirmen su asistencia antes del 1 de febrero (¡es muy importante saber si podrán acompañarnos!).
+
+¡Gracias de corazón y esperamos verlos para celebrar juntos este día inolvidable! 💕
+
+Con mucho cariño,
+Tomi & Emi
+''';
 }
