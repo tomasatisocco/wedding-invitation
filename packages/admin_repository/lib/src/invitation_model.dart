@@ -151,13 +151,12 @@ class Invitation extends Equatable {
     );
   }
 
-  String? get invitedNames {
-    if (title != null) return title;
-    if (guests == null) return null;
-    if (guests?.isEmpty ?? true) return null;
-    if (guests?.length == 1) return null;
+  String get invitedNames {
+    if (title != null && title!.isNotEmpty) return title!;
+    if (guests == null) return '';
+    if (guests?.isEmpty ?? true) return '';
 
-    return guests?.map((guest) => guest.name).join(', ') ?? '';
+    return guests?.map((guest) => guest.name).join(' & ') ?? '';
   }
 
   @override

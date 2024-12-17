@@ -85,52 +85,46 @@ class _InvitationWidgetViewState extends State<InvitationWidgetView> {
                     color: ButtonColors.button1TextColor,
                   ),
                 ),
-                const Gap(16),
                 const SaveResetButton(),
                 const Gap(16),
                 ShareWidget(invitation: invitation),
                 const Gap(16),
                 SizedBox(
                   width: 300,
-                  height: 100,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: TextField(
-                      controller: titleController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Title',
-                      ),
-                      onChanged: (value) {
-                        final newNote = invitation.copyWith(title: value);
-                        cubit.updateInvitation(newNote);
-                      },
-                      maxLines: 5,
+                  height: 60,
+                  child: TextField(
+                    controller: titleController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Title',
                     ),
+                    onChanged: (value) {
+                      final newNote = invitation.copyWith(title: value);
+                      cubit.updateInvitation(newNote);
+                    },
+                    maxLines: 5,
                   ),
                 ),
+                const Gap(8),
                 SizedBox(
                   width: 300,
-                  height: 100,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: TextField(
-                      controller: noteController,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: context.l10n.notes,
-                      ),
-                      onChanged: (value) {
-                        final newNote = invitation.copyWith(note: value);
-                        cubit.updateInvitation(newNote);
-                      },
-                      maxLines: 5,
+                  height: 60,
+                  child: TextField(
+                    controller: noteController,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: context.l10n.notes,
                     ),
+                    onChanged: (value) {
+                      final newNote = invitation.copyWith(note: value);
+                      cubit.updateInvitation(newNote);
+                    },
+                    maxLines: 5,
                   ),
                 ),
                 ...(invitation.guests ?? [])
                     .map((guest) => GuestWidget(guest: guest)),
-                const Gap(16),
+                const Gap(8),
                 IconButton(
                   icon: const Icon(
                     Icons.add,
@@ -262,7 +256,7 @@ class _GuestWidgetState extends State<GuestWidget> {
                     controller: nameController,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 16,
                       color: ButtonColors.button1TextColor,
                     ),
                     onChanged: (value) {
@@ -274,27 +268,6 @@ class _GuestWidgetState extends State<GuestWidget> {
               ],
             ),
             const Gap(16),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Gap(16),
-                Text(
-                  context.l10n.attendance,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: ButtonColors.button1TextColor,
-                  ),
-                ),
-                Checkbox(
-                  value: isAttending ?? false,
-                  fillColor: WidgetStateProperty.all(attendingColor),
-                  onChanged: (value) {
-                    final newGuest = widget.guest.copyWith(isAttending: value);
-                    context.read<InvitationCubit>().updateGuest(newGuest);
-                  },
-                ),
-              ],
-            ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -312,6 +285,21 @@ class _GuestWidgetState extends State<GuestWidget> {
                       ? WidgetStateProperty.all(Colors.green)
                       : WidgetStateProperty.all(Colors.red),
                   onChanged: null,
+                ),
+                Text(
+                  context.l10n.attendance,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: ButtonColors.button1TextColor,
+                  ),
+                ),
+                Checkbox(
+                  value: isAttending ?? false,
+                  fillColor: WidgetStateProperty.all(attendingColor),
+                  onChanged: (value) {
+                    final newGuest = widget.guest.copyWith(isAttending: value);
+                    context.read<InvitationCubit>().updateGuest(newGuest);
+                  },
                 ),
               ],
             ),
@@ -369,20 +357,25 @@ class ShareWidget extends StatelessWidget {
         children: [
           Container(
             width: 300,
+            height: 100,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Text(
-              invitationText,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 16,
-                color: ButtonColors.button1TextColor,
-              ),
+            child: ListView(
+              children: [
+                Text(
+                  invitationText,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: ButtonColors.button1TextColor,
+                  ),
+                ),
+              ],
             ),
           ),
-          const Gap(16),
+          const Gap(4),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -426,18 +419,44 @@ class ShareWidget extends StatelessWidget {
 
   String get link =>
       'https://wedding-invitation-4ee7d.web.app/${invitation.id}';
-  String get invitationText => '''
-¡Hola, ${invitation.invitedNames}! ✨
-¡Llegó la invitación oficial a nuestra boda! 🎉 Estamos muy felices de compartir con ustedes este momento tan especial.
 
-Aquí les dejamos el enlace: $link.
+  String get invitationText {
+    if (invitation.guests?.length == 1) {
+      return singleInvitationText;
+    } else {
+      return multipleInvitationText;
+    }
+  }
+
+  String get singleInvitationText => '''
+¡Hola, ${invitation.invitedNames}!
+¡Llegó la invitación oficial a nuestra boda! Estamos muy felices de compartir con vos este momento tan especial.
+
+Te dejamos el enlace: $link.
+Para acceder, necesitarás esta contraseña: 15032025.
+
+Recomendamos ver la invitación desde tu celular para una mejor experiencia. 📱
+
+Por favor, confirma tu asistencia antes del 1 de febrero (¡es muy importante saber si podrás acompañarnos!).
+
+¡Gracias de corazón y esperamos verte para celebrar juntos este día inolvidable!
+
+Con mucho cariño,
+Tomi & Emi
+''';
+
+  String get multipleInvitationText => '''
+¡Hola, ${invitation.invitedNames}!
+¡Llegó la invitación oficial a nuestra boda! Estamos muy felices de compartir con ustedes este momento tan especial.
+
+Les dejamos el enlace: $link.
 Para acceder, necesitarán esta contraseña: 15032025.
 
 Recomendamos ver la invitación desde su celular para una mejor experiencia. 📱
 
 Por favor, confirmen su asistencia antes del 1 de febrero (¡es muy importante saber si podrán acompañarnos!).
 
-¡Gracias de corazón y esperamos verlos para celebrar juntos este día inolvidable! 💕
+¡Gracias de corazón y esperamos verlos para celebrar juntos este día inolvidable!
 
 Con mucho cariño,
 Tomi & Emi

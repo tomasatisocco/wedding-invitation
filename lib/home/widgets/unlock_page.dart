@@ -103,6 +103,7 @@ class _VideoOverlayState extends State<VideoOverlay>
   @override
   Widget build(BuildContext context) {
     final names = context.read<HomeCubit>().state.invitationNames;
+    final isSingle = names?.split('&').length == 1;
     return BlocListener<UnlockCubit, UnlockStatus>(
       listener: (context, state) {
         if (state.isUnlocked) {
@@ -125,7 +126,7 @@ class _VideoOverlayState extends State<VideoOverlay>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AutoSizeText(
-                context.l10n.welcome,
+                isSingle ? context.l10n.singleWelcome : context.l10n.welcome,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 style: const TextStyle(
@@ -150,7 +151,7 @@ class _VideoOverlayState extends State<VideoOverlay>
                   minWidth: 300,
                   maxHeight: 56,
                 ),
-                padding: const EdgeInsets.all(6),
+                padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
                     colors: [
@@ -175,14 +176,14 @@ class _VideoOverlayState extends State<VideoOverlay>
                   onFieldSubmitted: (pass) =>
                       context.read<UnlockCubit>().unlock(pass),
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 12,
                     color: Colors.brown,
                   ),
                   decoration: InputDecoration(
                     hintText: context.l10n.enterPassword.toUpperCase(),
                     hintStyle: const TextStyle(
                       color: Colors.brown,
-                      fontSize: 20,
+                      fontSize: 12,
                     ),
                     fillColor: Colors.white,
                     constraints: const BoxConstraints(

@@ -30,44 +30,50 @@ class AssistancePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Gap(40),
-        Image.asset(
-          'assets/images/dancing.png',
-          height: 340,
-        ),
-        const Gap(40),
-        Text(
-          context.l10n.confirmAssistance.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 24,
-            color: ButtonColors.button1TextColor,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        children: [
+          const Gap(40),
+          Padding(
+            padding: const EdgeInsets.only(left: 56),
+            child: Image.asset(
+              'assets/images/dancing.png',
+              height: 340,
+            ),
           ),
-        ),
-        const Gap(40),
-        Text(
-          context.l10n.beforeDate,
-          style: const TextStyle(
-            fontSize: 16,
-            color: ButtonColors.button1TextColor,
+          const Gap(40),
+          Text(
+            context.l10n.confirmAssistance.toUpperCase(),
+            style: const TextStyle(
+              fontSize: 24,
+              color: ButtonColors.button1TextColor,
+            ),
           ),
-        ),
-        const Gap(40),
-        BlocBuilder<AssistanceCubit, AssistanceState>(
-          builder: (context, state) {
-            final guests = state.invitation.guests ?? [];
-            return Column(
-              children: [
-                ...guests.map((e) => GuestAssistance(guest: e)),
-                const Gap(16),
-                const ConfirmButton(),
-              ],
-            );
-          },
-        ),
-        const Gap(32),
-      ],
+          const Gap(40),
+          Text(
+            context.l10n.beforeDate,
+            style: const TextStyle(
+              fontSize: 16,
+              color: ButtonColors.button1TextColor,
+            ),
+          ),
+          const Gap(40),
+          BlocBuilder<AssistanceCubit, AssistanceState>(
+            builder: (context, state) {
+              final guests = state.invitation.guests ?? [];
+              return Column(
+                children: [
+                  ...guests.map((e) => GuestAssistance(guest: e)),
+                  const Gap(16),
+                  const ConfirmButton(),
+                ],
+              );
+            },
+          ),
+          const Gap(32),
+        ],
+      ),
     );
   }
 }

@@ -64,7 +64,7 @@ class _ImageWidget extends StatelessWidget {
   final int index;
   final num scrollPosition;
 
-  static const startOfWidget = 1300;
+  static const startOfWidget = 1100;
   static const delay = 200;
 
   double _calculateOpacity() {
