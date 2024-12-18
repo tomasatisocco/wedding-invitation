@@ -112,6 +112,7 @@ class _InvitationWidgetViewState extends State<InvitationWidgetView> {
                   height: 60,
                   child: TextField(
                     controller: titleController,
+                    key: const Key('title'),
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Title',
@@ -129,6 +130,7 @@ class _InvitationWidgetViewState extends State<InvitationWidgetView> {
                   height: 60,
                   child: TextField(
                     controller: noteController,
+                    key: const Key('note'),
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
                       labelText: context.l10n.notes,

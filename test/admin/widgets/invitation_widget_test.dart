@@ -71,7 +71,7 @@ void main() {
     (tester) async {
       await buildWidget(tester, InvitationWidget(invitation: mockInvitation));
 
-      await tester.enterText(find.byType(TextField).first, 'Test note');
+      await tester.enterText(find.byKey(const Key('note')), 'Test note');
       await tester.pumpAndSettle();
       await tester.tap(find.text('Reset').first);
       await tester.pumpAndSettle();

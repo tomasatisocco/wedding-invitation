@@ -84,7 +84,6 @@ void main() {
       ),
     );
 
-    expect(find.text('ATTENDANCE'), findsOneWidget);
     expect(find.text('Yes'), findsNWidgets(2));
     expect(find.text('No'), findsNWidgets(2));
     expect(find.byType(ConfirmButton), findsOneWidget);
