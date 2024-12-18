@@ -41,7 +41,7 @@ dev_dependencies:
   mocktail: ^1.0.4
   plugin_platform_interface: any
   url_launcher_platform_interface: any
-  very_good_analysis: ^6.0.0
+  very_good_analysis: ^7.0.0
 
 flutter:
   uses-material-design: true
