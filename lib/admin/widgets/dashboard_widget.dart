@@ -115,17 +115,19 @@ class Indicator extends StatelessWidget {
       context: context,
       useRootNavigator: false,
       builder: (iContext) => AlertDialog(
-        content: Column(
-          children: guest
-              .map(
-                (e) => GuestWidget(
-                  guest: e,
-                  onSelect: (e) {
-                    context.read<AdminCubit>().selectByGuest(e);
-                  },
-                ),
-              )
-              .toList(),
+        content: SingleChildScrollView(
+          child: Column(
+            children: guest
+                .map(
+                  (e) => GuestWidget(
+                    guest: e,
+                    onSelect: (e) {
+                      context.read<AdminCubit>().selectByGuest(e);
+                    },
+                  ),
+                )
+                .toList(),
+          ),
         ),
       ),
     );

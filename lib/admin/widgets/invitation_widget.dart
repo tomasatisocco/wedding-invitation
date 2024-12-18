@@ -74,16 +74,34 @@ class _InvitationWidgetViewState extends State<InvitationWidgetView> {
       },
       builder: (context, state) {
         final invitation = state.actualInvitation;
+        final sent = state.actualInvitation.sent ?? false;
         return Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text(
-                  state.actualInvitation.id ?? '',
-                  style: const TextStyle(
-                    fontSize: 32,
-                    color: ButtonColors.button1TextColor,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      state.actualInvitation.id ?? '',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        color: ButtonColors.button1TextColor,
+                      ),
+                    ),
+                    const Gap(8),
+                    IconButton(
+                      icon: Icon(
+                        Icons.verified,
+                        color: sent ? Colors.green : Colors.grey,
+                      ),
+                      onPressed: () {
+                        context
+                            .read<InvitationCubit>()
+                            .updateInvitation(invitation.copyWith(sent: !sent));
+                      },
+                    ),
+                  ],
                 ),
                 const SaveResetButton(),
                 const Gap(16),
@@ -437,7 +455,7 @@ Para acceder, necesitarás esta contraseña: 15032025.
 
 Recomendamos ver la invitación desde tu celular para una mejor experiencia. 📱
 
-Por favor, confirma tu asistencia antes del 1 de febrero (¡es muy importante saber si podrás acompañarnos!).
+Por favor, confirma tu asistencia antes del 1 de febrero dentro de la pagina misma (¡es muy importante saber si podrás acompañarnos!).
 
 ¡Gracias de corazón y esperamos verte para celebrar juntos este día inolvidable!
 
@@ -454,11 +472,28 @@ Para acceder, necesitarán esta contraseña: 15032025.
 
 Recomendamos ver la invitación desde su celular para una mejor experiencia. 📱
 
-Por favor, confirmen su asistencia antes del 1 de febrero (¡es muy importante saber si podrán acompañarnos!).
+Por favor, confirmen su asistencia antes del 1 de febrero dentro de la pagina misma (¡es muy importante saber si podrán acompañarnos!).
 
 ¡Gracias de corazón y esperamos verlos para celebrar juntos este día inolvidable!
 
 Con mucho cariño,
 Tomi & Emi
+''';
+
+  String get englishInvitation => '''
+Hello, ${invitation.invitedNames}!
+The official invitation to our wedding has arrived! We are so happy to share this very special moment with you.
+
+Here is the link: https://wedding-invitation-4ee7d.web.app/fran_eliana.
+To access it, you’ll need this password: 15032025.
+
+We recommend viewing the invitation on your phone for the best experience. 📱
+
+Please confirm your attendance by February 1 directly on the page (it’s very important for us to know if you’ll be able to join!).
+
+Thank you from the bottom of our hearts, and we hope to see you to celebrate this unforgettable day together!
+
+With love,
+Tomas & Emi
 ''';
 }

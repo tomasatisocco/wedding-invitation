@@ -31,7 +31,7 @@ class InvitationsPage extends StatelessWidget {
           return Row(
             children: [
               SizedBox(
-                width: 150,
+                width: 175,
                 child: Column(
                   children: [
                     Row(
@@ -49,23 +49,30 @@ class InvitationsPage extends StatelessWidget {
                       ],
                     ),
                     const Gap(16),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: invitations.length,
-                      itemBuilder: (context, index) {
-                        final invitation = invitations[index];
-                        return ListTile(
-                          title: Text(invitation.id ?? ''),
-                          tileColor: invitation == state.selectedInvitation
-                              ? ButtonColors.button1FillColor
-                              : ButtonColors.button2FillColor,
-                          onTap: () {
-                            context
-                                .read<AdminCubit>()
-                                .selectInvitation(invitation);
-                          },
-                        );
-                      },
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: invitations.length,
+                        itemBuilder: (context, index) {
+                          final invitation = invitations[index];
+                          final sent = invitation.sent ?? false;
+                          return ListTile(
+                            title: Text(invitation.id ?? ''),
+                            leading: Icon(
+                              Icons.verified,
+                              color: sent ? Colors.green : Colors.grey,
+                              size: 16,
+                            ),
+                            tileColor: invitation == state.selectedInvitation
+                                ? ButtonColors.button1FillColor
+                                : ButtonColors.button2FillColor,
+                            onTap: () {
+                              context
+                                  .read<AdminCubit>()
+                                  .selectInvitation(invitation);
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
