@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:wedding_invitation/admin/cubit/admin_cubit.dart';
 import 'package:wedding_invitation/admin/widgets/dashboard_widget.dart';
+import 'package:wedding_invitation/admin/widgets/excel_button.dart';
 import 'package:wedding_invitation/admin/widgets/invitation_widget.dart';
 import 'package:wedding_invitation/app_colors.dart';
 import 'package:wedding_invitation/l10n/l10n.dart';
@@ -46,6 +47,7 @@ class InvitationsPage extends StatelessWidget {
                               context.read<AdminCubit>().selectHome(),
                           icon: const Icon(Icons.home_rounded),
                         ),
+                        const ExcelButton(),
                       ],
                     ),
                     const Gap(16),
