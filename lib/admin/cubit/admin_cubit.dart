@@ -98,6 +98,13 @@ class AdminCubit extends Cubit<AdminState> {
     );
   }
 
+  Invitation? guestInvitation(String? guestID) {
+    if (guestID == null) return null;
+    return _originalList?.firstWhere(
+      (e) => e.guests?.map((e) => e.id).contains(guestID) ?? false,
+    );
+  }
+
   final AdminRepository _adminRepository;
   List<Invitation>? _originalList;
 }

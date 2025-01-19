@@ -486,7 +486,7 @@ Tomi & Emi
 Hello, ${invitation.invitedNames}!
 The official invitation to our wedding has arrived! We are so happy to share this very special moment with you.
 
-Here is the link: https://wedding-invitation-4ee7d.web.app/fran_eliana.
+Here is the link: $link
 To access it, you’ll need this password: 15032025.
 
 We recommend viewing the invitation on your phone for the best experience. 📱

@@ -31,6 +31,11 @@ class TotalInvitations extends StatelessWidget {
     final declined =
         invitedPeople?.where((e) => e.isAttending == false).toList();
     final missing = invitedPeople?.where((e) => e.isAttending == null).toList();
+    final preferences = invitedPeople
+        ?.where((e) =>
+            e.dietaryPreference != null &&
+            e.dietaryPreference != DietaryPreference.none)
+        .toList();
     return Column(
       children: [
         Row(
@@ -64,10 +69,22 @@ class TotalInvitations extends StatelessWidget {
             ),
           ],
         ),
-        Indicator(
-          label: 'Missing',
-          value: missing?.length.toString(),
-          guests: missing,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Indicator(
+              label: 'Missing',
+              value: missing?.length.toString(),
+              guests: missing,
+            ),
+            const Gap(32),
+            Indicator(
+              label: 'Dietary',
+              value: preferences?.length.toString(),
+              guests: preferences,
+              showDietary: true,
+            ),
+          ],
         ),
       ],
     );
@@ -78,12 +95,14 @@ class Indicator extends StatelessWidget {
   const Indicator({
     required this.label,
     required this.value,
+    this.showDietary = false,
     this.guests,
     super.key,
   });
 
   final String label;
   final String? value;
+  final bool showDietary;
   final List<Guest>? guests;
 
   @override
@@ -114,22 +133,28 @@ class Indicator extends StatelessWidget {
     await showDialog<void>(
       context: context,
       useRootNavigator: false,
-      builder: (iContext) => AlertDialog(
-        content: SingleChildScrollView(
-          child: Column(
-            children: guest
-                .map(
-                  (e) => GuestWidget(
+      builder: (iContext) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: Column(
+              children: guest.map(
+                (e) {
+                  final invitation =
+                      context.read<AdminCubit>().guestInvitation(e.id);
+                  return GuestWidget(
                     guest: e,
+                    invitation: invitation,
                     onSelect: (e) {
                       context.read<AdminCubit>().selectByGuest(e);
                     },
-                  ),
-                )
-                .toList(),
+                    showDietary: showDietary,
+                  );
+                },
+              ).toList(),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -138,16 +163,22 @@ class GuestWidget extends StatelessWidget {
   const GuestWidget({
     required this.guest,
     required this.onSelect,
+    required this.showDietary,
+    this.invitation,
     super.key,
   });
 
   final Guest guest;
+  final Invitation? invitation;
+  final bool showDietary;
   final void Function(Guest guest) onSelect;
 
   @override
   Widget build(BuildContext context) {
+    final title =
+        '${guest.name} | ${invitation?.id} ${showDietary ? '| ${guest.dietaryPreference?.name}' : ''}';
     return ListTile(
-      title: Text(guest.name ?? ''),
+      title: Text(title),
       onTap: () {
         Navigator.pop(context);
         onSelect(guest);
